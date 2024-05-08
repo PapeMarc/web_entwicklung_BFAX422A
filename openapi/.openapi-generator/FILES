@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 analysis_options.yaml
@@ -18,5 +17,3 @@ lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
 lib/model/message.dart
 pubspec.yaml
-test/chat_api_test.dart
-test/message_test.dart

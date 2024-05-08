@@ -5,30 +5,32 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://petstore3.swagger.io/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**none**](ChatApi.md#none) | **POST** /chat | Message conversation with ChatGPT.
+[**postChat**](ChatApi.md#postchat) | **POST** /chat | Posts a Chat
 
 
-# **none**
-> Message none(message)
+# **postChat**
+> Message postChat(message)
 
-Message conversation with ChatGPT.
+Posts a Chat
+
+Posts a Chat
 
 ### Example
 ```dart
 import 'package:openapi/api.dart';
 
 final api_instance = ChatApi();
-final message = Message(); // Message | none
+final message = Message(); // Message | Chat
 
 try {
-    final result = api_instance.none(message);
+    final result = api_instance.postChat(message);
     print(result);
 } catch (e) {
-    print('Exception when calling ChatApi->none: $e\n');
+    print('Exception when calling ChatApi->postChat: $e\n');
 }
 ```
 
@@ -36,7 +38,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **message** | [**Message**](Message.md)| none | 
+ **message** | [**Message**](Message.md)| Chat | 
 
 ### Return type
 
@@ -48,7 +50,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/xml, application/x-www-form-urlencoded
  - **Accept**: application/json, application/xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

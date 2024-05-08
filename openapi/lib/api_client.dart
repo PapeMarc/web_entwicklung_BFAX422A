@@ -11,7 +11,7 @@
 part of openapi.api;
 
 class ApiClient {
-  ApiClient({this.basePath = 'https://localhost', this.authentication,});
+  ApiClient({this.basePath = 'https://petstore3.swagger.io/api/v3', this.authentication,});
 
   final String basePath;
   final Authentication? authentication;

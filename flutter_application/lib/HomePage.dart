@@ -21,9 +21,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  _MyHomePageState();
 
   String _userInput = "";
-  String _aiAnswer = "";
+  String _aiAnswer = "Empty Textbox for AI Answers.";
 
   ChatApi? _api;
 
@@ -45,13 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
       message: _userInput,
     );
 
-    var response = await _api!.chat(message);
+    var response = await _api!.postChat(message);
     _setAiAnswer(response!);
   }
 
   @override
   Widget build(BuildContext context) {
     _api = Provider.of<ChatApi>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -76,18 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Row(
             children:<Widget>[
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(child: TextFormField(decoration: const InputDecoration(
                 icon: Icon(Icons.message),
                 hintText: "Example: Hey ChatGPT! Who are you?",
                 labelText: "Message"
               ),onChanged: (String value) {_setUserInput(value);},),),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               IconButton(
-                icon: Icon(Icons.send_rounded, size: 25),
-                onPressed: () => { _askAI() },
+                icon: const Icon(Icons.send_rounded, size: 25),
+                onPressed: _askAI,
               ),
-              SizedBox(width: 300),
+              const SizedBox(width: 300),
             ],
           ),
         ],),
