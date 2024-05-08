@@ -5,19 +5,17 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to *https://petstore3.swagger.io/api/v3*
+All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**postChat**](ChatApi.md#postchat) | **POST** /chat | Posts a Chat
+[**chat**](ChatApi.md#chat) | **POST** /chat | Message conversation with ChatGPT.
 
 
-# **postChat**
-> Message postChat(message)
+# **chat**
+> Message chat(message)
 
-Posts a Chat
-
-Posts a Chat
+Message conversation with ChatGPT.
 
 ### Example
 ```dart
@@ -27,10 +25,10 @@ final api_instance = ChatApi();
 final message = Message(); // Message | Chat
 
 try {
-    final result = api_instance.postChat(message);
+    final result = api_instance.chat(message);
     print(result);
 } catch (e) {
-    print('Exception when calling ChatApi->postChat: $e\n');
+    print('Exception when calling ChatApi->chat: $e\n');
 }
 ```
 
@@ -50,8 +48,8 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml, application/x-www-form-urlencoded
- - **Accept**: application/json, application/xml
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

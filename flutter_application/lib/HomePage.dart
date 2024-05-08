@@ -24,13 +24,16 @@ class _MyHomePageState extends State<MyHomePage> {
   _MyHomePageState();
 
   String _userInput = "";
-  String _aiAnswer = "Empty Textbox for AI Answers.";
+  final List<String> _messages = List<String>.empty(growable: true);
+  Alignment _alignment = Alignment.bottomLeft;
 
   ChatApi? _api;
+    final FocusNode _focusNode = FocusNode();
 
   void _setAiAnswer(Message message) {
     setState(() {
-      _aiAnswer = message.message ?? "<no message received>";
+      _messages.removeLast();
+      _messages.add("ChatGPT: \"${message.message ?? "<no message received>"}\"");
     });
   }
 
@@ -39,60 +42,126 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _askAI() async {
-
+    setState((){_messages.add("You: \"$_userInput\""); _messages.add("ChatGPT: typing..."); _focusNode.requestFocus();});
     var message = Message(
       timestamp: DateTime.now().toUtc(),
       author: MessageAuthorEnum.user,
       message: _userInput,
     );
 
-    var response = await _api!.postChat(message);
+    var response = await _api!.chat(message);
+    _setAiAnswer(response!);
+  }
+
+    void _askAIwithInput(String input) async {
+    setState((){_messages.add("You: \"$input\""); _messages.add("ChatGPT: typing..."); _focusNode.requestFocus();});
+    var message = Message(
+      timestamp: DateTime.now().toUtc(),
+      author: MessageAuthorEnum.user,
+      message: input,
+    );
+
+    var response = await _api!.chat(message);
     _setAiAnswer(response!);
   }
 
   @override
   Widget build(BuildContext context) {
     _api = Provider.of<ChatApi>(context);
-
+    var controller = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(widget.title, style: TextStyle(color: Theme.of(context).colorScheme.background),),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(children: [
-          Row(
-            children: [
-              SizedBox(width: 15),
-              Text(
-                _aiAnswer,
-                key: const Key('AiAnswerText'),
+      body: Container(
+        color: Theme.of(context).colorScheme.onBackground,
+        child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: MediaQuery.of(context).size.height - 200,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.fromLTRB(30, 10, 100, 30),
+              //physics: const NeverScrollableScrollPhysics(),
+              addAutomaticKeepAlives: false,
+              reverse: true,
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                if(index%2==0) {
+                  _alignment = Alignment.bottomLeft;
+                } else {
+                  _alignment = Alignment.bottomRight;
+                }
+                return Container(
+                  alignment: _alignment,
+                  width: 100,
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Text(
+                    _messages.reversed.elementAt(index),
+                    style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.background),
+                  ),
+                );
+              },
               ),
-            ],
-          ),
+            ),
           const Row(
             children: [
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
             ],
           ),
           Row(
             children:<Widget>[
               const SizedBox(width: 20),
-              Expanded(child: TextFormField(decoration: const InputDecoration(
-                icon: Icon(Icons.message),
-                hintText: "Example: Hey ChatGPT! Who are you?",
-                labelText: "Message"
-              ),onChanged: (String value) {_setUserInput(value);},),),
-              const SizedBox(width: 20),
-              IconButton(
-                icon: const Icon(Icons.send_rounded, size: 25),
-                onPressed: _askAI,
+              Expanded(
+                child: TextFormField(
+                  autofocus: true,
+                  focusNode: _focusNode,
+                  style: TextStyle(color: Theme.of(context).colorScheme.background),
+                  controller: controller,
+                  decoration: InputDecoration(
+                    hintText: "Example: Hey ChatGPT! How are you?",
+                    labelText: "Message",
+                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                    fillColor: Theme.of(context).colorScheme.primary,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.background,
+                        width: 2.0,
+                      ),
+                      ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2.0,
+                      )
+                    ),
+                    contentPadding: const EdgeInsets.all(20),
+                    //prefixText: " ",
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.send_rounded, size: 25),
+                      onPressed: ()=>{_askAI(), controller.clear()},
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      color: Theme.of(context).colorScheme.background,
+                    ),
+                    prefixIcon: const Icon(Icons.message_rounded),
+                    prefixIconColor: Theme.of(context).colorScheme.background,
+                  ),
+                  cursorColor: Theme.of(context).primaryColorLight,
+                  onChanged: (String value) {_setUserInput(value);},
+                  onFieldSubmitted: (value) {
+                    controller.clear();
+                    _askAIwithInput(value);
+                  },
+                ),
               ),
-              const SizedBox(width: 300),
+              SizedBox(width: MediaQuery.of(context).size.width/2),
             ],
           ),
-        ],),
+      ],),
       ),
     );
   }

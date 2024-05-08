@@ -16,9 +16,7 @@ class ChatApi {
 
   final ApiClient apiClient;
 
-  /// Posts a Chat
-  ///
-  /// Posts a Chat
+  /// Message conversation with ChatGPT.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -26,7 +24,7 @@ class ChatApi {
   ///
   /// * [Message] message (required):
   ///   Chat
-  Future<Response> postChatWithHttpInfo(Message message,) async {
+  Future<Response> chatWithHttpInfo(Message message,) async {
     // ignore: prefer_const_declarations
     final path = r'/chat';
 
@@ -37,7 +35,7 @@ class ChatApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json', 'application/xml', 'application/x-www-form-urlencoded'];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -51,16 +49,14 @@ class ChatApi {
     );
   }
 
-  /// Posts a Chat
-  ///
-  /// Posts a Chat
+  /// Message conversation with ChatGPT.
   ///
   /// Parameters:
   ///
   /// * [Message] message (required):
   ///   Chat
-  Future<Message?> postChat(Message message,) async {
-    final response = await postChatWithHttpInfo(message,);
+  Future<Message?> chat(Message message,) async {
+    final response = await chatWithHttpInfo(message,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
