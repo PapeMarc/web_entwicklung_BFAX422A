@@ -9,6 +9,8 @@ import 'package:shelf_router/shelf_router.dart';
 
 import 'package:openapi/api.dart';
 
+import 'config.dart';
+
 // Configure routes.
 final _router = Router()
   ..get('/', _rootHandler)
@@ -24,9 +26,10 @@ Future<Response> _chatHandler(Request request) async {
   final Message? message = Message.fromJson(json.decode(body)); //(author: MessageAuthorEnum.user, message: body.toString(), timestamp: DateTime.now());
   final ChatModel model;
 
+  final config = await Config.readConfig();
   final openAI = OpenAI.instance.build(
-    orgId: "", 
-    token: "", 
+    orgId: config.organizationId, 
+    token: config.apiToken,
     baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 120)), 
     enableLog: true);
 
