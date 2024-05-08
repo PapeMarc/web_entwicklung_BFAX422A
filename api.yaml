@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: OpenAI Message Transfer API
+  description: | 
+  version: 0.0.1
+servers:
+  - url: https://localhost
+tags:
+  - name: chat
+    description: none
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+
+paths:
+  /chat:
+    post:
+      tags:
+        - chat
+      summary: Message conversation with ChatGPT.
+      operationId: chat
+      requestBody:
+        description: none
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+        required: true
+        
+      responses:
+        '200':
+          description: Message sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Invalid.
+        '404':
+          description: Not found.
+        '422':
+          description: Validation exception.
+          
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        author:
+          type: string
+          enum: [user, system, ai]
