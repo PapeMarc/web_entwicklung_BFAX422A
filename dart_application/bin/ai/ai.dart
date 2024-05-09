@@ -1,5 +1,6 @@
 import 'package:openapi/api.dart';
 
 abstract class Ai {
-  Future<Message> chat(Message input);
+  Future<Message> message(Message input);
+  Future<MessageAndUsage> chat(Chat chat);
 }

@@ -42,13 +42,13 @@ import 'package:openapi/api.dart';
 
 
 final api_instance = ChatApi();
-final message = Message(); // Message | Chat
+final chat = Chat(); // Chat | Request_Body
 
 try {
-    final result = api_instance.chat(message);
+    final result = api_instance.chatCompletion(chat);
     print(result);
 } catch (e) {
-    print('Exception when calling ChatApi->chat: $e\n');
+    print('Exception when calling ChatApi->chatCompletion: $e\n');
 }
 
 ```
@@ -59,12 +59,16 @@ All URIs are relative to *https://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ChatApi* | [**chat**](doc//ChatApi.md#chat) | **POST** /chat | Message conversation with ChatGPT.
+*ChatApi* | [**chatCompletion**](doc//ChatApi.md#chatcompletion) | **POST** /chat/completion | Chat completion based conversation with ChatGPT.
+*ChatApi* | [**chatMessage**](doc//ChatApi.md#chatmessage) | **POST** /chat/message | Message conversation with ChatGPT.
 
 
 ## Documentation For Models
 
+ - [Chat](doc//Chat.md)
+ - [ChatUsage](doc//ChatUsage.md)
  - [Message](doc//Message.md)
+ - [MessageAndUsage](doc//MessageAndUsage.md)
 
 
 ## Documentation For Authorization

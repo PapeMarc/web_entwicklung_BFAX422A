@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
       message: _userInput,
     );
 
-    var response = await _api!.chat(message);
+    var response = await _api!.chatMessage(message);
     _setAiAnswer(response!);
   }
 
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       message: input,
     );
 
-    var response = await _api!.chat(message);
+    var response = await _api!.chatMessage(message);
     _setAiAnswer(response!);
   }
 

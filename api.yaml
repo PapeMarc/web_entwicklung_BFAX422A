@@ -13,12 +13,12 @@ tags:
       url: http://swagger.io
 
 paths:
-  /chat:
+  /chat/message:
     post:
       tags:
         - chat
       summary: Message conversation with ChatGPT.
-      operationId: chat
+      operationId: chat_message
       requestBody:
         description: Chat
         content:
@@ -29,13 +29,37 @@ paths:
         
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
         '405':
-          description: Invalid input   
+          description: Invalid input 
+
+  /chat/completion:
+    post:
+      tags:
+        - chat
+      summary: Chat completion based conversation with ChatGPT.
+      operationId: chat_completion
+      requestBody:
+        description: Request_Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Chat'
+        required: true
+
+      responses:
+        '200':
+          description: Successful Chat completion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageAndUsage'
+        '405':
+          description: Invalid request.
 
 components:
   schemas:
@@ -53,3 +77,40 @@ components:
             - user
             - system
             - ai
+
+    MessageAndUsage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        author:
+          type: string
+          enum: 
+            - user
+            - system
+            - ai
+        usage:
+          $ref: '#/components/schemas/ChatUsage'
+
+    Chat:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageAndUsage'
+        max_tokens:
+          type: integer
+
+    ChatUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: number
+        completion_tokens:
+          type: number
+        total_tokens:
+          type: number

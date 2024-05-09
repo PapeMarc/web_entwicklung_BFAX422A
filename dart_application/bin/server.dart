@@ -23,14 +23,15 @@ Ai _ai = OpenAiChat(model: GptTurbo0631Model());
 
 final _router = Router()
   ..get('/', _rootHandler)
-  ..post('/chat', _chatHandler);
+  ..post('/chat/message', _messageHandler)
+  ..post('/chat/completion', _completionHandler);
 
 
 Response _rootHandler(Request req) {
   return Response.ok('Chat Server V0.0.1');
 }
 
-Future<Response> _chatHandler(Request request) async {
+Future<Response> _messageHandler(Request request) async {
   if (request.contentLength == 0) {
     return Response.badRequest(body: 'Request body is empty');
   }
@@ -52,12 +53,43 @@ Future<Response> _chatHandler(Request request) async {
 
   Message response;
   try {
-    response = await _ai.chat(message);
+    response = await _ai.message(message);
   } catch (e) {
     return Response.internalServerError(body: 'Error invoking AI: $e');
   }
 
   return Response.ok(json.encode(response.toJson()));
+}
+
+Future<Response> _completionHandler(Request request) async{
+  
+  if (request.contentLength == 0) {
+    return Response.badRequest(body: 'Request body is empty');
+  }
+  final inJson = await request.readAsString();
+
+  /*Map<String, dynamic> messageMap;
+  try {
+    messageMap = json.decode(inJson);
+  } catch (e) {
+    return Response.badRequest(body: 'Invalid JSON format: $e');
+  }*/
+
+  Chat requestBody;
+  try {
+    requestBody = Chat.fromJson(inJson)!;
+  } catch (e) {
+    return Response.badRequest(body: 'Invalid Message format: $e');
+  }
+
+  MessageAndUsage message;
+  try {
+    message = await _ai.chat(requestBody);
+  } catch (e) {
+    return Response.internalServerError(body: 'Error invoking AI: $e');
+  }
+
+  return Response.ok(json.encode(message.toJson()));
 }
 
 void main(List<String> args) async {

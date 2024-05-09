@@ -2,8 +2,11 @@
 .travis.yml
 README.md
 analysis_options.yaml
+doc/Chat.md
 doc/ChatApi.md
+doc/ChatUsage.md
 doc/Message.md
+doc/MessageAndUsage.md
 git_push.sh
 lib/api.dart
 lib/api/chat_api.dart
@@ -15,5 +18,10 @@ lib/auth/authentication.dart
 lib/auth/http_basic_auth.dart
 lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
+lib/model/chat.dart
+lib/model/chat_usage.dart
 lib/model/message.dart
+lib/model/message_and_usage.dart
 pubspec.yaml
+test/chat_test.dart
+test/message_and_usage_test.dart

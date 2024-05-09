@@ -30,7 +30,10 @@ part 'auth/http_bearer_auth.dart';
 
 part 'api/chat_api.dart';
 
+part 'model/chat.dart';
+part 'model/chat_usage.dart';
 part 'model/message.dart';
+part 'model/message_and_usage.dart';
 
 
 /// An [ApiClient] instance that uses the default values obtained from
