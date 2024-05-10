@@ -17,9 +17,7 @@ class EnvVariables {
   static final port = 'CHAT_SERVER_PORT';
 }
 
-
 Ai _ai = OpenAiChat(model: GptTurbo0631Model());
-
 
 final _router = Router()
   ..get('/', _rootHandler)
@@ -68,23 +66,23 @@ Future<Response> _completionHandler(Request request) async{
   }
   final inJson = await request.readAsString();
 
-  /*Map<String, dynamic> messageMap;
+  Map<String, dynamic> chatMap;
   try {
-    messageMap = json.decode(inJson);
+    chatMap = json.decode(inJson);
   } catch (e) {
     return Response.badRequest(body: 'Invalid JSON format: $e');
-  }*/
+  }
 
-  Chat requestBody;
+  Chat chat;
   try {
-    requestBody = Chat.fromJson(inJson)!;
+    chat = Chat.fromJson(chatMap)!;
   } catch (e) {
     return Response.badRequest(body: 'Invalid Message format: $e');
   }
 
   MessageAndUsage message;
   try {
-    message = await _ai.chat(requestBody);
+    message = await _ai.chat(chat);
   } catch (e) {
     return Response.internalServerError(body: 'Error invoking AI: $e');
   }

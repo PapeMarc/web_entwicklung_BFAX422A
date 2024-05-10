@@ -23,5 +23,3 @@ lib/model/chat_usage.dart
 lib/model/message.dart
 lib/model/message_and_usage.dart
 pubspec.yaml
-test/chat_test.dart
-test/message_and_usage_test.dart
