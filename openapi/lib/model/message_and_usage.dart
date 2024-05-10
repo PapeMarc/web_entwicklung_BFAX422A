@@ -176,13 +176,13 @@ class MessageAndUsageAuthorEnum {
 
   static const user = MessageAndUsageAuthorEnum._(r'user');
   static const system = MessageAndUsageAuthorEnum._(r'system');
-  static const ai = MessageAndUsageAuthorEnum._(r'ai');
+  static const assistant = MessageAndUsageAuthorEnum._(r'assistant');
 
   /// List of all possible values in this [enum][MessageAndUsageAuthorEnum].
   static const values = <MessageAndUsageAuthorEnum>[
     user,
     system,
-    ai,
+    assistant,
   ];
 
   static MessageAndUsageAuthorEnum? fromJson(dynamic value) => MessageAndUsageAuthorEnumTypeTransformer().decode(value);
@@ -223,7 +223,7 @@ class MessageAndUsageAuthorEnumTypeTransformer {
       switch (data) {
         case r'user': return MessageAndUsageAuthorEnum.user;
         case r'system': return MessageAndUsageAuthorEnum.system;
-        case r'ai': return MessageAndUsageAuthorEnum.ai;
+        case r'assistant': return MessageAndUsageAuthorEnum.assistant;
         default:
           if (!allowNull) {
             throw ArgumentError('Unknown enum value to decode: $data');

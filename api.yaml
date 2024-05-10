@@ -91,7 +91,7 @@ components:
           enum: 
             - user
             - system
-            - ai
+            - assistant
         usage:
           $ref: '#/components/schemas/ChatUsage'
 

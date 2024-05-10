@@ -24,16 +24,17 @@ class _MyHomePageState extends State<MyHomePage> {
   _MyHomePageState();
 
   String _userInput = "";
-  final List<String> _messages = List<String>.empty(growable: true);
+  //final List<String> _messageStrings = List<String>.empty(growable: true);
+  final List<MessageAndUsage> _messages = List<MessageAndUsage>.empty(growable: true);
   Alignment _alignment = Alignment.bottomLeft;
 
   ChatApi? _api;
     final FocusNode _focusNode = FocusNode();
 
-  void _setAiAnswer(Message message) {
+  void _setAiAnswer(MessageAndUsage message) {
     setState(() {
       _messages.removeLast();
-      _messages.add("ChatGPT: \"${message.message ?? "<no message received>"}\"");
+      _messages.add(message);
     });
   }
 
@@ -42,27 +43,92 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _askAI() async {
-    setState((){_messages.add("You: \"$_userInput\""); _messages.add("ChatGPT: typing..."); _focusNode.requestFocus();});
-    var message = Message(
-      timestamp: DateTime.now().toUtc(),
-      author: MessageAuthorEnum.user,
-      message: _userInput,
+
+    var userMessage = MessageAndUsage(
+      author: MessageAndUsageAuthorEnum.user,
+      timestamp: DateTime.now(),
+      usage: ChatUsage(
+        completionTokens: 0,
+        promptTokens: 0,
+        totalTokens: 0
+      ),
+      message: _userInput
     );
 
-    var response = await _api!.chatMessage(message);
-    _setAiAnswer(response!);
+    var gptMessage = MessageAndUsage(
+      author: MessageAndUsageAuthorEnum.assistant,
+      timestamp: DateTime.now(),
+      usage: ChatUsage(
+        completionTokens: 0,
+        promptTokens: 0,
+        totalTokens: 0
+      ),
+      message: ""
+    );
+
+    setState((){
+      _messages.add(userMessage); 
+      _messages.add(gptMessage); 
+      _focusNode.requestFocus();
+    });
+
+    Chat chat = Chat(
+      messages: _messages,
+      maxTokens: 200
+    );
+
+    gptMessage.message = "Typing...";
+    
+    gptMessage = (await _api!.chatCompletion(chat)) ?? gptMessage;
+    
+    _setAiAnswer(gptMessage);
   }
 
     void _askAIwithInput(String input) async {
-    setState((){_messages.add("You: \"$input\""); _messages.add("ChatGPT: typing..."); _focusNode.requestFocus();});
-    var message = Message(
-      timestamp: DateTime.now().toUtc(),
-      author: MessageAuthorEnum.user,
-      message: input,
+
+    var userMessage = MessageAndUsage(
+      author: MessageAndUsageAuthorEnum.user,
+      timestamp: DateTime.now(),
+      usage: ChatUsage(
+        completionTokens: 0,
+        promptTokens: 0,
+        totalTokens: 0
+      ),
+      message: input
     );
 
-    var response = await _api!.chatMessage(message);
-    _setAiAnswer(response!);
+    var gptMessage = MessageAndUsage(
+      author: MessageAndUsageAuthorEnum.assistant,
+      timestamp: DateTime.now(),
+      usage: ChatUsage(
+        completionTokens: 0,
+        promptTokens: 0,
+        totalTokens: 0
+      ),
+      message: ""
+    );
+
+    setState((){
+      _messages.add(userMessage); 
+      _messages.add(gptMessage); 
+      _focusNode.requestFocus();
+    });
+
+    Chat chat = Chat(
+      maxTokens: 200,
+      messages: _messages
+    );
+
+    gptMessage.message = "Typing...";
+    try{
+      gptMessage = (await _api!.chatCompletion(chat)) ?? gptMessage;
+    }
+    catch(e){
+      gptMessage.message = e.toString();
+      _setAiAnswer(gptMessage);
+    }
+    
+    _setAiAnswer(gptMessage);
   }
 
   @override
@@ -88,19 +154,26 @@ class _MyHomePageState extends State<MyHomePage> {
               reverse: true,
               itemCount: _messages.length,
               itemBuilder: (context, index) {
+                TextStyle dynamicStyle = TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.background);
+                var prefix = "You: ";
                 if(index%2==0) {
                   _alignment = Alignment.bottomLeft;
+                  dynamicStyle = const TextStyle(fontSize: 20, color: Colors.amber);
+                  prefix = "ChatGPT: ";
                 } else {
                   _alignment = Alignment.bottomRight;
                 }
+                /*if(_messages.reversed.elementAt(index).author == MessageAndUsageAuthorEnum.assistant){
+                }*/
+                var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
                 return Container(
                   alignment: _alignment,
                   width: 100,
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Text(
-                    _messages.reversed.elementAt(index),
-                    style: TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.background),
+                    formattedMessage,
+                    style: dynamicStyle,
                   ),
                 );
               },
