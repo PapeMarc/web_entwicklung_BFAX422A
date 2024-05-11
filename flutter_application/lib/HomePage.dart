@@ -2,36 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:openapi/api.dart';
 import 'package:provider/provider.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  _MyHomePageState();
+class _ChatPageState extends State<ChatPage> {
+  _ChatPageState();
 
   String _userInput = "";
-  //final List<String> _messageStrings = List<String>.empty(growable: true);
   final List<MessageAndUsage> _messages = List<MessageAndUsage>.empty(growable: true);
   Alignment _alignment = Alignment.bottomLeft;
+  EdgeInsets _margin = EdgeInsets.zero;
+  bool assistantActive = false;
 
   ChatApi? _api;
     final FocusNode _focusNode = FocusNode();
 
   void _setAiAnswer(MessageAndUsage message) {
+    
+    if(!assistantActive){return;}
+    assistantActive = false;
+
     setState(() {
       _messages.removeLast();
       _messages.add(message);
@@ -44,6 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _askAI() async {
 
+    if(assistantActive || _userInput.isEmpty){return;}
+    assistantActive = true;
+
     var userMessage = MessageAndUsage(
       author: MessageAndUsageAuthorEnum.user,
       timestamp: DateTime.now(),
@@ -54,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       message: _userInput
     );
-
+    _userInput = "";
     var gptMessage = MessageAndUsage(
       author: MessageAndUsageAuthorEnum.assistant,
       timestamp: DateTime.now(),
@@ -84,7 +83,10 @@ class _MyHomePageState extends State<MyHomePage> {
     _setAiAnswer(gptMessage);
   }
 
-    void _askAIwithInput(String input) async {
+  void _askAIwithInput(String input) async {
+
+    if(assistantActive || _userInput.isEmpty){return;}
+    assistantActive = true;
 
     var userMessage = MessageAndUsage(
       author: MessageAndUsageAuthorEnum.user,
@@ -96,6 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       message: input
     );
+
+    _userInput = "";
 
     var gptMessage = MessageAndUsage(
       author: MessageAndUsageAuthorEnum.assistant,
@@ -133,57 +137,87 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     _api = Provider.of<ChatApi>(context);
     var controller = TextEditingController();
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
+
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title, style: TextStyle(color: Theme.of(context).colorScheme.background),),
+
+        backgroundColor: colorScheme.primary,
+        title: Text(
+          widget.title, 
+          style: TextStyle(
+            color: colorScheme.background
+          ),
+        ),
       ),
+
       body: Container(
-        color: Theme.of(context).colorScheme.onBackground,
+
+        color: colorScheme.onBackground,
         child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 200,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.fromLTRB(30, 10, 100, 30),
-              //physics: const NeverScrollableScrollPhysics(),
-              addAutomaticKeepAlives: false,
-              reverse: true,
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                TextStyle dynamicStyle = TextStyle(fontSize: 20, color: Theme.of(context).colorScheme.background);
-                var prefix = "You: ";
-                if(index%2==0) {
-                  _alignment = Alignment.bottomLeft;
-                  dynamicStyle = const TextStyle(fontSize: 20, color: Colors.amber);
-                  prefix = "ChatGPT: ";
-                } else {
-                  _alignment = Alignment.bottomRight;
-                }
-                /*if(_messages.reversed.elementAt(index).author == MessageAndUsageAuthorEnum.assistant){
-                }*/
-                var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
-                return Container(
-                  alignment: _alignment,
-                  width: 100,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Text(
-                    formattedMessage,
-                    style: dynamicStyle,
-                  ),
-                );
-              },
+
+          children: <Widget>[
+
+            SizedBox(
+              height: MediaQuery.of(context).size.height - 200,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.fromLTRB(30, 10, 100, 30),
+                //physics: const NeverScrollableScrollPhysics(),
+                addAutomaticKeepAlives: false,
+                reverse: true,
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  TextStyle dynamicStyle = TextStyle(fontSize: 20, color: colorScheme.background);
+                  var prefix = "You: ";
+                  if(index%2==0) {
+                    _alignment = Alignment.bottomLeft;
+                    _margin = EdgeInsets.fromLTRB(8, 15, MediaQuery.of(context).size.width/3, 15);
+                    dynamicStyle = const TextStyle(fontSize: 20, color: Colors.amber);
+                    prefix = "ChatGPT: ";
+                  } else {
+                    _alignment = Alignment.bottomRight;
+                    _margin = EdgeInsets.fromLTRB(MediaQuery.of(context).size.width/3, 15, 8, 15);
+                  }
+                  var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
+                  return Container(
+                    alignment: _alignment,
+                    margin: _margin,
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+
+                    /*decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter, 
+                        end: Alignment.bottomCenter, 
+                        colors: [
+                          colorScheme.primary,
+                          colorScheme.primary
+                        ]
+                      ),
+                      color: Colors.blueGrey
+                    ),*/
+
+                    child: Text(
+                      formattedMessage,
+                      style: dynamicStyle,
+                    )
+                  );
+                },
               ),
             ),
+
           const Row(
             children: [
               SizedBox(height: 20,),
             ],
           ),
+
           Row(
             children:<Widget>[
               const SizedBox(width: 20),
@@ -191,37 +225,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: TextFormField(
                   autofocus: true,
                   focusNode: _focusNode,
-                  style: TextStyle(color: Theme.of(context).colorScheme.background),
+                  style: TextStyle(color: colorScheme.background),
                   controller: controller,
                   decoration: InputDecoration(
                     hintText: "Example: Hey ChatGPT! How are you?",
                     labelText: "Message",
-                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary),
-                    fillColor: Theme.of(context).colorScheme.primary,
+                    hintStyle: TextStyle(color: colorScheme.secondary),
+                    fillColor: colorScheme.primary,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(30)),
                       borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.background,
+                        color: colorScheme.background,
                         width: 2.0,
                       ),
                       ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(30)),
                       borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: colorScheme.primary,
                         width: 2.0,
                       )
                     ),
                     contentPadding: const EdgeInsets.all(20),
-                    //prefixText: " ",
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.send_rounded, size: 25),
                       onPressed: ()=>{_askAI(), controller.clear()},
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                      color: Theme.of(context).colorScheme.background,
+                      color: colorScheme.background,
                     ),
                     prefixIcon: const Icon(Icons.message_rounded),
-                    prefixIconColor: Theme.of(context).colorScheme.background,
+                    prefixIconColor: colorScheme.background,
                   ),
                   cursorColor: Theme.of(context).primaryColorLight,
                   onChanged: (String value) {_setUserInput(value);},
@@ -234,8 +267,12 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(width: MediaQuery.of(context).size.width/2),
             ],
           ),
-      ],),
+
+          ],
+        ),
       ),
+
     );
+
   }
 }
