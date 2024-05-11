@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/PrefsManager.dart';
 import 'package:openapi/api.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,8 @@ class _ChatPageState extends State<ChatPage> {
   ChatApi? _api;
 
   String _userInput = "";
-  double _conversationCosts = 0.0;
-  String _conversationCostsFiveDecimals = "0";
+  double _conversationCosts = 0;
+  String _conversationCostsFiveDecimals = "0.00000";
   Alignment _alignment = Alignment.bottomLeft;
   EdgeInsets _margin = EdgeInsets.zero;
   bool assistantActive = false;
@@ -28,8 +29,19 @@ class _ChatPageState extends State<ChatPage> {
   final List<MessageAndUsage> _messages = List<MessageAndUsage>.empty(growable: true);
 
   @override
-  Widget build(BuildContext context) {
+  void initState(){
+    super.initState();
+    _loadConversation();
+  }
 
+  /*@override
+  void dispose() {
+    prefsManager.saveConversation(_messages);
+    super.dispose();
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
     _api = Provider.of<ChatApi>(context);
     var controller = TextEditingController();
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -81,7 +93,13 @@ class _ChatPageState extends State<ChatPage> {
                       color: colorScheme.tertiary, 
                       borderRadius: const BorderRadius.all(Radius.circular(10))
                   ),
-                  child: Row(
+                  padding: const EdgeInsets.fromLTRB(0,4,0,4),
+                  child: TextButton.icon(
+                      icon: Icon(Icons.delete, color: colorScheme.background,), 
+                      label: Text("Delete Conversation.", style: TextStyle(color: colorScheme.background)),
+                      onPressed: _deleteConversation
+                    )
+                    /*Row(
                     children: [
                       SizedBox(width: 10),
                       Text("Delete whole Conversation.", style: TextStyle(color: colorScheme.background),),
@@ -90,7 +108,20 @@ class _ChatPageState extends State<ChatPage> {
                         icon: Icon(Icons.delete, color: colorScheme.background,)
                       ),
                     ],
+                  ),*/
+                ),
+                const SizedBox(width: 5),
+                Container(
+                  decoration: BoxDecoration(
+                    color: colorScheme.tertiary, 
+                    borderRadius: const BorderRadius.all(Radius.circular(10))
                   ),
+                  padding: const EdgeInsets.fromLTRB(0,4,0,4),
+                  child: TextButton.icon(
+                      icon: Icon(Icons.save_alt, color: colorScheme.background,), 
+                      label: Text("Save", style: TextStyle(color: colorScheme.background)),
+                      onPressed: _save,
+                    )
                 ),
                 SizedBox(width: displaySize.width*0.05, height: displaySize.height*0.1,),
               ],
@@ -102,58 +133,61 @@ class _ChatPageState extends State<ChatPage> {
               decoration: BoxDecoration(
                 border: Border.all(color:colorScheme.primary, width: 2),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
-                //color: colorScheme,
                 ),
               child: SizedBox(
-              height: displaySize.height *0.6,
-              child: ListView.builder(
-                
-                scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                //physics: const NeverScrollableScrollPhysics(),
-                addAutomaticKeepAlives: true,
-                reverse: true,
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  TextStyle dynamicStyle = TextStyle(fontSize: 20, color: colorScheme.surface);
-                  var prefix = "You: ";
-                  if(index%2==0) {
-                    _alignment = Alignment.bottomLeft;
-                    _margin = EdgeInsets.fromLTRB(8, 15, displaySize.width/3, 15);
-                    dynamicStyle = const TextStyle(fontSize: 20, color: Colors.amber);
-                    prefix = "ChatGPT: ";
-                  } else {
-                    _alignment = Alignment.bottomRight;
-                    _margin = EdgeInsets.fromLTRB(displaySize.width/3, 15, 8, 15);
-                  }
-                  var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
-                  return Container(
-                    alignment: _alignment,
-                    margin: _margin,
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                height: displaySize.height *0.6,
+                child: RawScrollbar(
+                  thumbColor: colorScheme.secondary,
+                  radius: const Radius.circular(20),
+                  thickness: 5,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    //physics: const NeverScrollableScrollPhysics(),
+                    addAutomaticKeepAlives: true,
+                    reverse: true,
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      TextStyle dynamicStyle = TextStyle(fontSize: 20, color: colorScheme.surface);
+                      var prefix = "You: ";
+                      if(index%2==0) {
+                        _alignment = Alignment.bottomLeft;
+                        _margin = EdgeInsets.fromLTRB(8, 15, displaySize.width/3, 15);
+                        dynamicStyle = const TextStyle(fontSize: 20, color: Colors.amber);
+                        prefix = "ChatGPT: ";
+                      } else {
+                        _alignment = Alignment.bottomRight;
+                        _margin = EdgeInsets.fromLTRB(displaySize.width/3, 15, 8, 15);
+                      }
+                      var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
+                      return Container(
+                        alignment: _alignment,
+                        margin: _margin,
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
 
-                    /*decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter, 
-                        end: Alignment.bottomCenter, 
-                        colors: [
-                          colorScheme.primary,
-                          colorScheme.primary
-                        ]
-                      ),
-                      color: Colors.blueGrey
-                    ),*/
+                        /*decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter, 
+                            end: Alignment.bottomCenter, 
+                            colors: [
+                              colorScheme.primary,
+                              colorScheme.primary
+                            ]
+                          ),
+                          color: Colors.blueGrey
+                        ),*/
 
-                    child: Text(
-                      formattedMessage,
-                      style: dynamicStyle,
-                    )
-                  );
-                },
+                        child: Text(
+                          formattedMessage,
+                          style: dynamicStyle,
+                        )
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
             ),
             
 
@@ -248,6 +282,13 @@ class _ChatPageState extends State<ChatPage> {
 
   }
 
+  void _deleteConversation(){
+    _setConversationCosts(0);
+    setState(() {
+      _messages.clear();
+    });
+    _save();
+  }
 
   void _setConversationCosts(double costs){
       _conversationCosts = costs;
@@ -371,4 +412,18 @@ class _ChatPageState extends State<ChatPage> {
     _setAiAnswer(gptMessage);
   }
 
+  void _loadConversation() async{
+    List<MessageAndUsage> list = await PrefsManager.loadConversation();
+    setState(() {
+      _messages.addAll(list);
+      //if(list.isNotEmpty){_messages.add(MessageAndUsage(message: "Data loaded."));}
+    });
+  }
+
+  // was an exit method. Exit doesn't work in flutter, so we use a simple save button function.
+  void _save() async{
+    await PrefsManager.saveConversation(_messages);
+    /*SystemNavigator.pop();
+    exit(0);*/
+  }
 }
