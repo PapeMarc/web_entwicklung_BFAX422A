@@ -72,7 +72,7 @@ Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewerte
 
 ### 3.1 Umsetzung
 
-- Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd nach rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links.
+Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd nach rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links.
 > [!NOTE]
 > Folgender Code wird vereinfacht dargestellt, um die beschriebene Funktionalität zu visualisieren.
 ```dart
@@ -97,8 +97,8 @@ ListView.builder(
 
 ![](ListViewScreenshot.png)
 
-Um jetzt den Bezug zwischen Nachrichten herstellen zu können, muss die Server-API entsprechend angepasst und neu generiert werden. Hierbei kommt der Online-Editor von Swagger zum Einsatz. 
-Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet. 
+Um jetzt den Bezug zwischen Nachrichten herzustellen sowie die Kosten pro Nachricht speichern zu können, muss die Server-API entsprechend angepasst und erneut generiert werden. _Hierbei kommt der Online-Editor von Swagger zum Einsatz._ 
+_Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._
 Folgende API-Definition lässt sich festhalten:
 
 ```yaml
@@ -126,12 +126,10 @@ Folgende API-Definition lässt sich festhalten:
         description: Invalid request.
 ```
 
-Folgende Entitäten werden definiert:
+Folgende Definitionen wurden für die Entitäten _MessageAndUsage_, _Chat_ und _ChatUsage_ verwendet:
 
+***MessageAndUsage***
 ```yaml
-components:
-  schemas:
-  
     MessageAndUsage:
       type: object
       properties:
@@ -148,7 +146,9 @@ components:
             - assistant
         usage:
           $ref: '#/components/schemas/ChatUsage'
-
+```
+***Chat***
+```yaml
     Chat:
       type: object
       properties:
@@ -158,7 +158,9 @@ components:
             $ref: '#/components/schemas/MessageAndUsage'
         max_tokens:
           type: integer
-
+```
+***ChatUsage***
+```yaml
     ChatUsage:
       type: object
       properties:
