@@ -15,6 +15,9 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 
 ## 1. Zusammenfassung
 
+Im Rahmen des Moduls __Projekt Web-Entwicklung__ des Studiengangs __Angewandte Informatik__ an der FHDW, entstand dieses Softwareprojekt. Zwecks der Orientierung und Einarbeitung in die Programmiersprache Dart, das Flutter-Framework sowie
+OpenAPI via. Swagger, wurde [dieses Projekt](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) vorgegeben.
+
 ## 2. Einleitung
 
 ### 2.1 Ist-Zustand
@@ -23,7 +26,7 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 
 ### 2.3 Ziele / Nutzen
 
-## 3. Praxis
+## 3. Die Erweiterung
 
 ### 3.1 Umsetzung
 
