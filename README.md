@@ -4,11 +4,31 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 ## Inhaltsverzeichnis
 1. Zusammenfassung
 2. Einleitung
-2.1 Ist-Zustand
-2.2 die Idee
-2.3 Ziele
+    - Ist-Zustand
+    - die Idee
+    - Ziele / Nutzen
 3. Praxis
-3.1 Umsetzung
-3.2 Erreichte Ziele
-3.3 Zusätze
-4. Rekapitulation
+    - Umsetzung
+    - Retroperspektive: Umsetzung
+    - Zusätzliche Erweiterungen
+4. Rekapitulation und Ausblick
+
+## 1. Zusammenfassung
+
+## 2. Einleitung
+
+### 2.1 Ist-Zustand
+
+### 2.2 die Idee
+
+### 2.3 Ziele / Nutzen
+
+## 3. Praxis
+
+### 3.1 Umsetzung
+
+### 3.2 Retroperspektive: Umsetzung
+
+### 3.3 Zusätzliche Erweiterungen
+
+## 4. Rekapitulation und Ausblick
