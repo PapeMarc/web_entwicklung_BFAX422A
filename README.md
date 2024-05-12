@@ -130,46 +130,48 @@ Folgende Definitionen wurden für die Entitäten _MessageAndUsage_, _Chat_ und _
 
 ***MessageAndUsage***
 ```yaml
-    MessageAndUsage:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-        message:
-          type: string
-        author:
-          type: string
-          enum: 
-            - user
-            - system
-            - assistant
-        usage:
-          $ref: '#/components/schemas/ChatUsage'
+MessageAndUsage:
+    type: object
+    properties:
+    timestamp:
+        type: string
+        format: date-time
+    message:
+        type: string
+    author:
+        type: string
+        enum: 
+        - user
+        - system
+        - assistant
+    usage:
+        $ref: '#/components/schemas/ChatUsage'
 ```
+
 ***Chat***
 ```yaml
-    Chat:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageAndUsage'
-        max_tokens:
-          type: integer
+Chat:
+    type: object
+    properties:
+    messages:
+        type: array
+        items:
+        $ref: '#/components/schemas/MessageAndUsage'
+    max_tokens:
+        type: integer
 ```
+
 ***ChatUsage***
 ```yaml
-    ChatUsage:
-      type: object
-      properties:
-        prompt_tokens:
-          type: number
-        completion_tokens:
-          type: number
-        total_tokens:
-          type: number
+ChatUsage:
+    type: object
+    properties:
+    prompt_tokens:
+        type: number
+    completion_tokens:
+        type: number
+    total_tokens:
+        type: number
 ```
 
 
