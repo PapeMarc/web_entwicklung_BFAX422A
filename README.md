@@ -17,13 +17,12 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 Dieses Projekt stellt die Erweiterung [dieses bestehenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
 Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums an der FHDW und umfasst:
 1. Serverseitig:
-- die Überarbeitung der Server-API um den austausch ganzer Konversationen zu ermöglichen.
+    - die Überarbeitung der Server-API um den austausch ganzer Konversationen zu ermöglichen.
 2. Clientseitig: 
-- die komplette Neugestaltung und den Ausbau der Client-Benutzeroberfläche um entsprechende Komponenten, um die Konversation darstellen zu können.
-- die Erweiterung der Geschäftslogik des Clients, um Konversationen (bestehend aus vielen Nachrichten) anstatt von
- einzelnen Nachrichten verarbeiten zu können.
-- die Erweiterung der Client-Benutzeroberfläche um eine aktuelle Kostenanzeige, eine Statuszeile, einen Speicher-Button sowie die Möglichkeit, die Konversation zurückzusetzen.
-- die Erweiterung des Clients um eine grundlegende Fehlerbehandlung und ein simples Speicher-Konzept, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
+    - die komplette Neugestaltung und den Ausbau der Client-Benutzeroberfläche um entsprechende Komponenten, um die Konversation darstellen zu können.
+    - die Erweiterung der Geschäftslogik des Clients, um Konversationen (bestehend aus vielen Nachrichten) anstatt von einzelnen Nachrichten verarbeiten zu können.
+    - die Erweiterung der Client-Benutzeroberfläche um eine aktuelle Kostenanzeige, eine Statuszeile, einen Speicher-Button sowie die Möglichkeit, die Konversation zurückzusetzen.
+    - die Erweiterung des Clients um eine grundlegende Fehlerbehandlung und ein simples Speicher-Konzept, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
 
 
 ## 2. Einleitung
