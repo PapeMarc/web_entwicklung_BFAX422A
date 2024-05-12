@@ -15,7 +15,7 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 
 ## 1. Zusammenfassung
 > [!NOTE] 
-> Dieses Projekt stellt die Erweiterung [dieses bestehenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
+> Dieses Projekt stellt die Erweiterung [dieses bereits existierenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
 Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums der _Angewandten Informatik_ an der [FHDW](https://www.fhdw.de) und umfasst:
 1. Serverseitig:
     - die Überarbeitung der __Server-API__ um den austausch ganzer Konversationen zu ermöglichen.
@@ -41,16 +41,28 @@ möglich, ältere Nachrichten zu Sichten.
 Des Weiteren bleiben die Nachrichten nicht über das Ende des Programms hinweg erhalten.
 
 Stürzt das Serverprogramm aus unvorhergesehenen Gründen ab, so ist die API für den Client nicht mehr erreichbar. Nach einiger Zeit entsteht daher ein Programmfehler und die Client-Anwendung stürzt ebenfalls ab. 
-Der Benutzer kann nur vermuten, was geschehen ist und wird mit dem direkten Absturz der Software konfrontiert, auf Kosten der User Experience.
+Der Benutzer kann lediglich vermuten, was geschehen ist und wird mit dem direkten Absturz der Software konfrontiert, auf Kosten der User-Experience.
 
-### 2.2 die Idee
+### 2.2 die Idee / das Konzept
 Nachdem die im letzten Abschnitt beschriebenen Probleme mit der Gefahr einer verminderten User-Experience einher gehen können,
-bedarf es einem Konzept, das diese Fehler behept.
+bedarf es einem Konzept, dass diese Fehler behebt:
+
+- Um auch bereits ausgetauschte Nachrichten lesen zu können, soll eine entsprechende Komponente hinzugefügt werden, die alle aktuellen Nachrichten (Anfragen sowie Antworten) darstellt.
+
+- Damit die gestellten Fragen und Antworten auch zur späteren Verwendung verfügbar bleiben, müssen diese persistiert werden.
+
+- Um auch Rückfragen auf bereits gestellte Fragen oder empfangene Antworten stellen zu können, soll der gesamte Nachrichtenverlauf im Rahmen einer neuen Nachricht and das Sprachmodell mit überreicht werden.
+
+- Um unvorhergesehenen Programmfehlern vorzubeugen, muss eine grundlegende Fehlerbehandlung implementiert werden.
+
+- Da jede Anfrage des eigenen Servers an die API des Sprachmodells mit Kosten verbunden ist, soll jede Antwort speichern, wie viele kosten sie verursacht hat. Des Weiteren soll eine Kostenanzeige in die grafische Benutzeroberfläche integriert werden, die die bisher entstandenen Kosten des gesamten Verlaufs aufsummiert.
 
 ### 2.3 Ziele / Nutzen
 
 ## 3. Die Erweiterung
-
+ListView
+([Shared Preferences](https://pub.dev/packages/shared_preferences))
+der Server-API bei Anfrage überreicht werden. Daher muss hier die Server-API sowie die Logik der Client-App umgeschrieben werden.
 ### 3.1 Umsetzung
 
 ### 3.2 Retroperspektive: Umsetzung
