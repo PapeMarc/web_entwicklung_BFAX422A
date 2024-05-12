@@ -131,6 +131,7 @@ Folgende API-Definition lässt sich festhalten:
 Folgende Definitionen wurden für die Entitäten _MessageAndUsage_, _Chat_ und _ChatUsage_ verwendet:
 
 ***MessageAndUsage***
+Diese Entität umfasst alle Informationen über eine bestimmte Nachricht. Sie beinhaltet wann und von wem was geschickt wurde. Zudem ist ein Feld _usage_ vorhanden, in welches die entstandenen Kosten des Sprachmodells geschrieben werden können (in Tokens).
 ```yaml
 MessageAndUsage:
     type: object
@@ -149,9 +150,9 @@ MessageAndUsage:
     usage:
         $ref: '#/components/schemas/ChatUsage'
 ```
-Diese Entität umfasst alle Informationen über eine bestimmte Nachricht. Sie beinhaltet wann und von wem was geschickt wurde. Zudem ist ein Feld _usage_ vorhanden, in welches die entstandenen Kosten des Sprachmodells geschrieben werden können (in Tokens).
 
 ***Chat***
+Die Entität Chat repräsentiert eine Nachrichtenanfrage an das Sprachmodell. Dementsprechend umfasst diese eine Liste aller Nachrichten, die ausgetauscht wurden. Auch ein Wert max_tokens kann mitgegeben werden. Dieser beeinflusst, wie viele Tokens das Sprachmodell zur Generierung der Antwort zur Verfügung hat.
 ```yaml
 Chat:
     type: object
@@ -162,10 +163,10 @@ Chat:
         $ref: '#/components/schemas/MessageAndUsage'
     max_tokens:
         type: integer
-```
-Die Entität Chat repräsentiert eine Nachrichtenanfrage an das Sprachmodell. Dementsprechend umfasst diese eine Liste aller Nachrichten, die ausgetauscht wurden. Auch ein Wert max_tokens kann mitgegeben werden. Dieser beeinflusst, wie viele Tokens das Sprachmodell zur Generierung der Antwort zur Verfügung hat. 
+``` 
 
 ***ChatUsage***
+Die Entität ChatUsage umfasst drei Felder, in welcher das Sprachmodell vermerken kann, wie viele Tokens verwendet wurden, um die entstandene Antwort zu generieren.
 ```yaml
 ChatUsage:
     type: object
@@ -177,9 +178,9 @@ ChatUsage:
     total_tokens:
         type: number
 ```
-Die Entität ChatUsage umfasst drei Felder, in welcher das Sprachmodell vermerken kann, wie viele Tokens verwendet wurden, um die entstandene Antwort zu generieren.
 
-Die Persistierung der Nachrichten wurde mithilfe von ([Shared Preferences](https://pub.dev/packages/shared_preferences)) realisiert.
+Die Clientseitige Persistierung der Nachrichten wurde mithilfe der ([Shared Preferences](https://pub.dev/packages/shared_preferences)) realisiert. Dies geschieht über die zwei statischen Methoden saveConversation() und loadConversation()
+der selbst erstellten PrefsManager-Klasse. Diese speichern die im Programm hinterlegte Nachrichtenliste als JSON-Objekt ab. Dies geschieht mithilfe der Bibliothek __dart:convert__ und __shared_preferences/shared_preferences.dart__.
 
 ### 3.2 Retroperspektive: Umsetzung
 
