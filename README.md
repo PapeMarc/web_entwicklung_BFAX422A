@@ -66,12 +66,23 @@ Nachdem im letzten Abschnitt die Idee kurz erörtert wurde, wird in diesem Absch
 
 - Eine Anzeige die die bisher entstandenen Kosten der Konversation visualisiert, trägt zur Transparenz der Anwendung und somit einer verbesserten User-Experience bei.
 
-
 ## 3. Die Erweiterung
+Dieser Abschnitt beschreibt, welche technischen Änderungen und Erweiterungen vorgenommen wurden, um die Zielsetzung zu erreichen.
+Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewertet. Zuletzt werden zusätzliche, nicht im Rahmen der Zielsetzung geplante Erweiterungen genannt.
+
+### 3.1 Umsetzung
+
+- Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links:
+```
+public class Test(){
+    Console.WriteLine("Testnachricht.");
+}
+```
+
 ListView
 ([Shared Preferences](https://pub.dev/packages/shared_preferences))
 der Server-API bei Anfrage überreicht werden. Daher muss hier die Server-API sowie die Logik der Client-App umgeschrieben werden.
-### 3.1 Umsetzung
+
 
 ### 3.2 Retroperspektive: Umsetzung
 
