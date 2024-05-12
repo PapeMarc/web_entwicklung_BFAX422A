@@ -15,18 +15,18 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 
 ## 1. Zusammenfassung
 Dieses Projekt stellt die Erweiterung [dieses bestehenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
-Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums an der FHDW und umfasst:
+Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums der _Angewandten Informatik_ an der FHDW und umfasst:
 1. Serverseitig:
-    - die Überarbeitung der Server-API um den austausch ganzer Konversationen zu ermöglichen.
+    - die Überarbeitung der __Server-API__ um den austausch ganzer Konversationen zu ermöglichen.
 2. Clientseitig: 
     - eine umfangreiche Neugestaltung und den Ausbau der __Client-Benutzeroberfläche__ um notwendige Komponenten und Elemente, um die Konversation angemessen visualisieren zu können.
-    - die Erweiterung der Geschäftslogik des Clients, um die Konversationen (bestehend aus vielen Nachrichten - anstatt einzelner Nachrichten) verarbeiten zu können.
+    - die Erweiterung der Geschäftslogik des Clients, um die __Konversationen__ (bestehend aus vielen Nachrichten - anstatt einzelner Nachrichten) __verarbeiten__ zu können.
     - die Erweiterung der Client-Benutzeroberfläche um eine aktuelle __Kostenanzeige__, eine __Statuszeile__, einen __Speicher-Button__ sowie die Möglichkeit, die __Konversation zurückzusetzen__.
     - die Erweiterung des Clients um eine grundlegende __Fehlerbehandlung__ und ein simples __Speicher-Konzept__, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
 
 
 ## 2. Einleitung
-Im Rahmen des Moduls __Projekt Web-Entwicklung__ des Studiengangs __Angewandte Informatik__ an der FHDW, entstand dieses Softwareprojekt. Das Ziel dieses Projekts ist es, eine (zur Einarbeitung und Orientierung) vorgebenene Software zu erweitern. Es handelt sich dabei um [dieses Projekt](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) von 
+Im Rahmen des Moduls __Projekt Web-Entwicklung__ des Studiengangs __Angewandte Informatik__ an der FHDW, entstand dieses Softwareprojekt. Das Ziel dieses Projekts ist es, eine (zur Einarbeitung und Orientierung) vorgebenene Applikation zu erweitern. Es handelt sich dabei um [dieses Projekt](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) von 
 @github/csoltenborn. Die Aufgabe bestand zudem aus der hier angefertigten Dokumentation dieser Erweiterung.  
 
 ### 2.1 Ist-Zustand
