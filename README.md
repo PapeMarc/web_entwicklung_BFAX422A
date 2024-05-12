@@ -97,8 +97,9 @@ ListView.builder(
 
 ![](ListViewScreenshot.png)
 
-Um jetzt den Bezug zwischen Nachrichten herstellen zu können, muss die Server-API entsprechend angepasst und neu generiert werden. Hierbei kommt der Online-Editor von Swagger zum Einsatz. Außerdem wird zur Generierung der API-Komponenten der Generator
-von OpenAPI verwendet. Folgende API-Definition lässt sich festhalten:
+Um jetzt den Bezug zwischen Nachrichten herstellen zu können, muss die Server-API entsprechend angepasst und neu generiert werden. Hierbei kommt der Online-Editor von Swagger zum Einsatz. 
+Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet. 
+Folgende API-Definition lässt sich festhalten:
 
 ```yaml
 /chat/completion:
@@ -123,6 +124,50 @@ von OpenAPI verwendet. Folgende API-Definition lässt sich festhalten:
               $ref: '#/components/schemas/MessageAndUsage'
       '405':
         description: Invalid request.
+```
+
+Folgende Entitäten werden definiert:
+
+```yaml
+components:
+  schemas:
+  
+    MessageAndUsage:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        author:
+          type: string
+          enum: 
+            - user
+            - system
+            - assistant
+        usage:
+          $ref: '#/components/schemas/ChatUsage'
+
+    Chat:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageAndUsage'
+        max_tokens:
+          type: integer
+
+    ChatUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: number
+        completion_tokens:
+          type: number
+        total_tokens:
+          type: number
 ```
 
 
