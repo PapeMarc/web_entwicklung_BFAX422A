@@ -95,7 +95,7 @@ ListView.builder(
 ```
 > Nach aufwendiger erfolgreicher Implementierung und Gestaltung der ListView-Komponente kann folgendes Erscheinungsbild festgehalten werden:
 
-![](ListViewScreenshot.png)
+![](image.png)
 
 ListView
 ([Shared Preferences](https://pub.dev/packages/shared_preferences))
