@@ -73,7 +73,7 @@ Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewerte
 ### 3.1 Umsetzung
 
 - Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links:
-```
+```dart
 ListView.builder(
     scrollDirection: Axis.vertical,
     padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
