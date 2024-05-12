@@ -19,10 +19,10 @@ Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums an der FHD
 1. Serverseitig:
     - die Überarbeitung der Server-API um den austausch ganzer Konversationen zu ermöglichen.
 2. Clientseitig: 
-    - die komplette Neugestaltung und den Ausbau der Client-Benutzeroberfläche um entsprechende Komponenten, um die Konversation darstellen zu können.
-    - die Erweiterung der Geschäftslogik des Clients, um Konversationen (bestehend aus vielen Nachrichten) anstatt von einzelnen Nachrichten verarbeiten zu können.
-    - die Erweiterung der Client-Benutzeroberfläche um eine aktuelle Kostenanzeige, eine Statuszeile, einen Speicher-Button sowie die Möglichkeit, die Konversation zurückzusetzen.
-    - die Erweiterung des Clients um eine grundlegende Fehlerbehandlung und ein simples Speicher-Konzept, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
+    - eine umfangreiche Neugestaltung und den Ausbau der __Client-Benutzeroberfläche__ um notwendige Komponenten und Elemente, um die Konversation angemessen visualisieren zu können.
+    - die Erweiterung der Geschäftslogik des Clients, um die Konversationen (bestehend aus vielen Nachrichten - anstatt einzelner Nachrichten) verarbeiten zu können.
+    - die Erweiterung der Client-Benutzeroberfläche um eine aktuelle __Kostenanzeige__, eine __Statuszeile__, einen __Speicher-Button__ sowie die Möglichkeit, die __Konversation zurückzusetzen__.
+    - die Erweiterung des Clients um eine grundlegende __Fehlerbehandlung__ und ein simples __Speicher-Konzept__, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
 
 
 ## 2. Einleitung
