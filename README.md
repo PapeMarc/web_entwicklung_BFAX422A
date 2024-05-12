@@ -97,6 +97,35 @@ ListView.builder(
 
 ![](ListViewScreenshot.png)
 
+Um jetzt den Bezug zwischen Nachrichten herstellen zu können, muss die Server-API entsprechend angepasst und neu generiert werden. Hierbei kommt der Online-Editor von Swagger zum Einsatz. Außerdem wird zur Generierung der API-Komponenten der Generator
+von OpenAPI verwendet. Folgende API-Definition lässt sich festhalten:
+
+```yaml
+/chat/completion:
+  post:
+    tags:
+      - chat
+    summary: Chat completion based conversation with ChatGPT.
+    operationId: chat_completion
+    requestBody:
+      description: Request_Body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Chat'
+      required: true
+    responses:
+      '200':
+        description: Successful Chat completion.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageAndUsage'
+      '405':
+        description: Invalid request.
+```
+
+
 ListView
 ([Shared Preferences](https://pub.dev/packages/shared_preferences))
 der Server-API bei Anfrage überreicht werden. Daher muss hier die Server-API sowie die Logik der Client-App umgeschrieben werden.
