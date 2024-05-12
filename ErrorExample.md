@@ -179,8 +179,42 @@ ChatUsage:
         type: number
 ```
 
-Die Clientseitige Persistierung der Nachrichten wurde mithilfe der ([Shared Preferences](https://pub.dev/packages/shared_preferences)) realisiert. Dies geschieht über die zwei statischen Methoden saveConversation() und loadConversation()
-der selbst erstellten PrefsManager-Klasse. Diese speichern die im Programm hinterlegte Nachrichtenliste als JSON-Objekt ab. Dies geschieht mithilfe der Bibliothek __dart:convert__ und __shared_preferences/shared_preferences.dart__.
+Die Clientseitige Persistierung der Nachrichten wurde mithilfe der [Shared Preferences](https://pub.dev/packages/shared_preferences) des Flutter-Frameworks realisiert. Dies geschieht über die zwei statischen Methoden _saveConversation()_ und _loadConversation()_ der erstellten PrefsManager-Klasse. Diese speichern die im Programm hinterlegte Nachrichtenliste als JSON-Objekt ab. Dies geschieht mithilfe der Bibliothek __dart:convert__ und __shared_preferences/shared_preferences.dart__.
+
+Um entstehenden Fehlern vorzubeugen, wurde eine grundlegende Fehlerbehandlung mit Try-Catch eingebunden. Tritt ein Fehler auf, so wird die Methode _setErrorMessage()_ aufgerufen, welche dann den entsprechenden Fehlertext geregelt und angemessen visualisiert.
+Diese sieht wie folgt aus:
+
+```dart
+void setErrorMessage({ColorScheme? colorScheme, String? message}){
+
+String defaultMessage = "No Errors detected.";
+
+_errorMessage = message ?? defaultMessage;
+
+if(_errorMessage == defaultMessage){
+    setState(() {
+    _errorMessageTextStyle = const TextStyle(color: Colors.green,fontWeight: FontWeight.normal);
+    _errorMessageBoxColor = colorScheme?.tertiary ?? const Color.fromARGB(255, 92, 91, 125);
+    });
+    return;
+}
+else{
+    setState(() {
+    _errorMessageTextStyle = TextStyle(color: colorScheme?.error ?? Colors.red, fontWeight: FontWeight.bold);
+    _errorMessageBoxColor = colorScheme?.onErrorContainer ?? Colors.white;
+    });
+}
+}
+```
+
+Wird kein Fehler registriert, so wird die Fehlerbox in der GUI wie folgt dargestellt:
+
+![alt text](NoErrorExample.png)
+
+Wird ein Fehler gefunden, so wird der Fehler wie folgt dargestellt (_Beispielfehler_):
+
+![alt text](ErrorExample.png)
+
 
 ### 3.2 Retroperspektive: Umsetzung
 
