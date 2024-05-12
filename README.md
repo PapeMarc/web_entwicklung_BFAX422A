@@ -98,7 +98,7 @@ ListView.builder(
 ![](ListViewScreenshot.png)
 
 Um jetzt den Bezug zwischen Nachrichten herzustellen sowie die Kosten pro Nachricht speichern zu können, muss die Server-API entsprechend angepasst und erneut generiert werden. _Hierbei kommt der Online-Editor von Swagger zum Einsatz._ 
-_Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._
+_Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._  
 Folgende API-Definition lässt sich festhalten:
 
 ```yaml
@@ -108,6 +108,7 @@ Folgende API-Definition lässt sich festhalten:
       - chat
     summary: Chat completion based conversation with ChatGPT.
     operationId: chat_completion
+
     requestBody:
       description: Request_Body
       content:
@@ -115,6 +116,7 @@ Folgende API-Definition lässt sich festhalten:
           schema:
             $ref: '#/components/schemas/Chat'
       required: true
+
     responses:
       '200':
         description: Successful Chat completion.
@@ -147,6 +149,7 @@ MessageAndUsage:
     usage:
         $ref: '#/components/schemas/ChatUsage'
 ```
+Diese Entität umfasst alle Informationen über eine bestimmte Nachricht. Sie beinhaltet wann und von wem was geschickt wurde. Zudem ist ein Feld _usage_ vorhanden, in welches die entstandenen Kosten des Sprachmodells geschrieben werden können (in Tokens).
 
 ***Chat***
 ```yaml
@@ -160,6 +163,7 @@ Chat:
     max_tokens:
         type: integer
 ```
+Die Entität Chat repräsentiert eine Nachrichtenanfrage an das Sprachmodell. Dementsprechend umfasst diese eine Liste aller Nachrichten, die ausgetauscht wurden. Auch ein Wert max_tokens kann mitgegeben werden. Dieser beeinflusst, wie viele Tokens das Sprachmodell zur Generierung der Antwort zur Verfügung hat. 
 
 ***ChatUsage***
 ```yaml
@@ -173,12 +177,9 @@ ChatUsage:
     total_tokens:
         type: number
 ```
+Die Entität ChatUsage umfasst drei Felder, in welcher das Sprachmodell vermerken kann, wie viele Tokens verwendet wurden, um die entstandene Antwort zu generieren.
 
-
-ListView
-([Shared Preferences](https://pub.dev/packages/shared_preferences))
-der Server-API bei Anfrage überreicht werden. Daher muss hier die Server-API sowie die Logik der Client-App umgeschrieben werden.
-
+Die Persistierung der Nachrichten wurde mithilfe von ([Shared Preferences](https://pub.dev/packages/shared_preferences)) realisiert.
 
 ### 3.2 Retroperspektive: Umsetzung
 
