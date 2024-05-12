@@ -26,7 +26,8 @@ Meine hier entwickelte Erweiterung umfasst:
 entsprechende Komponenten, um die Konversation darstellen zu können.
 - die Erweiterung der Geschäftslogik des Clients, um Konversationen (bestehend aus vielen Nachrichten) anstatt von
  einzelnen Nachrichten verarbeiten zu können.
-- die Erweiterung der Client-Benutzeroberfläche um eine aktuelle Kostenanzeige und die Möglichkeit, die Konversation zurück zu setzen.
+- die Erweiterung der Client-Benutzeroberfläche um eine aktuelle Kostenanzeige, eine Statuszeile, einen Speicher-Button sowie die Möglichkeit, die Konversation zurückzusetzen.
+- die Erweiterung des Clients um eine grundlegende Fehlerbehandlung und ein simples Speicher-Konzept, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
 
 
 ## 2. Einleitung
