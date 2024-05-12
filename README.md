@@ -14,7 +14,7 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 4. Rekapitulation und Ausblick
 
 ## 1. Zusammenfassung
-Dieses Projekt stellt die Erweiterung [dieses bestehenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
+> [!NOTE] Dieses Projekt stellt die Erweiterung [dieses bestehenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
 Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums der _Angewandten Informatik_ an der FHDW und umfasst:
 1. Serverseitig:
     - die Überarbeitung der __Server-API__ um den austausch ganzer Konversationen zu ermöglichen.
