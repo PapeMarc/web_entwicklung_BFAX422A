@@ -72,33 +72,23 @@ Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewerte
 
 ### 3.1 Umsetzung
 
-- Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links:
+- Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links. 
+> [!NOTE]
+> Folgender Code wird vereinfacht dargestellt, um die beschriebene Funktionalität zu visualisieren.
 ```dart
 ListView.builder(
     scrollDirection: Axis.vertical,
     itemCount: _messages.length,
     itemBuilder: (context, index) {
-        var prefix = "You: ";
-        if(index%2==0) 
-        {
-          _alignment = Alignment.bottomLeft;
-          prefix = "ChatGPT: ";
-        } 
-        else 
-        {
-          _alignment = Alignment.bottomRight;
-        }
 
-        var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
+        if(index%2==0){ _alignment = Alignment.bottomLeft; } 
+        else{ _alignment = Alignment.bottomRight; }
+
+        String message = _messages.elementAt(index).message.toString();
 
         return Container(
           alignment: _alignment,
-          margin: _margin,
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Text(
-            formattedMessage,
-            style: dynamicStyle,
-          )
+          child: Text( message )
         );
     },
     ),
