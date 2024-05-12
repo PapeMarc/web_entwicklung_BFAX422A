@@ -74,9 +74,36 @@ Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewerte
 
 - Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links:
 ```
-public class Test(){
-    Console.WriteLine("Testnachricht.");
-}
+ListView.builder(
+    scrollDirection: Axis.vertical,
+    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+    addAutomaticKeepAlives: true,
+    reverse: true,
+    itemCount: _messages.length,
+    itemBuilder: (context, index) {
+        TextStyle dynamicStyle = TextStyle(fontSize: 20, color: colorScheme.surface);
+        var prefix = "You: ";
+        if(index%2==0) {
+        _alignment = Alignment.bottomLeft;
+        _margin = EdgeInsets.fromLTRB(8, 15, displaySize.width/3, 15);
+        dynamicStyle = const TextStyle(fontSize: 20, color: Colors.amber);
+        prefix = "ChatGPT: ";
+        } else {
+        _alignment = Alignment.bottomRight;
+        _margin = EdgeInsets.fromLTRB(displaySize.width/3, 15, 8, 15);
+        }
+        var formattedMessage = prefix + _messages.reversed.elementAt(index).message.toString();
+        return Container(
+        alignment: _alignment,
+        margin: _margin,
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        child: Text(
+            formattedMessage,
+            style: dynamicStyle,
+        )
+        );
+    },
+    ),
 ```
 
 ListView
