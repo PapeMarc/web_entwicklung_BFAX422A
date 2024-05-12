@@ -24,6 +24,11 @@ class _ChatPageState extends State<ChatPage> {
   EdgeInsets _margin = EdgeInsets.zero;
   bool assistantActive = false;
 
+  String _errorMessage = "No Errors detected.";
+  TextStyle _errorMessageTextStyle = const TextStyle(color: Colors.green,fontWeight: FontWeight.normal);
+  Color _errorMessageBoxColor = const Color.fromARGB(255, 92, 91, 125); // this color is overwritten by building the Widget.
+  
+
   final FocusNode _focusNode = FocusNode();
   final double _modelCostsPerThousandTokens = (0.93/500000); // The current Model gpt-3.5-turbo-0613 costs 2 Dollar per 1 million Tokens
   final List<MessageAndUsage> _messages = List<MessageAndUsage>.empty(growable: true);
@@ -66,29 +71,41 @@ class _ChatPageState extends State<ChatPage> {
 
         /*Main vertical Column for all other GUI-components to attatch to.*/
         child: Column(
-
           children: <Widget>[
-
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   decoration: BoxDecoration(
+                    color: _errorMessageBoxColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(10))
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    constraints: BoxConstraints(maxWidth: displaySize.width*0.48),
+                    child: Text(_errorMessage, style: _errorMessageTextStyle, maxLines: 1, overflow: TextOverflow.clip),
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Container(
+                  constraints: BoxConstraints(maxWidth: displaySize.width*0.2),
+                  decoration: BoxDecoration(
                       color: colorScheme.tertiary, 
-                      borderRadius: const BorderRadius.all(Radius.circular(10))
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
                   child: 
                     Container(
                       padding: const EdgeInsets.all(10),
                       child: 
                       Text(
-                       "Conversation costs till now: $_conversationCostsFiveDecimals €",
-                        style: TextStyle(color: colorScheme.surface),
+                       "Chat Costs till now: $_conversationCostsFiveDecimals €",
+                        style: TextStyle(color: colorScheme.surface, overflow: TextOverflow.ellipsis),
                       ),
                     ),
                 ),
                 const SizedBox(width: 5),
                 Container(
+                  constraints: BoxConstraints(maxWidth: displaySize.width*0.1),
                   decoration: BoxDecoration(
                       color: colorScheme.tertiary, 
                       borderRadius: const BorderRadius.all(Radius.circular(10))
@@ -96,7 +113,7 @@ class _ChatPageState extends State<ChatPage> {
                   padding: const EdgeInsets.fromLTRB(0,4,0,4),
                   child: TextButton.icon(
                       icon: Icon(Icons.delete, color: colorScheme.background,), 
-                      label: Text("Delete Conversation.", style: TextStyle(color: colorScheme.background)),
+                      label: Text("Delete Chat", style: TextStyle(color: colorScheme.background, overflow: TextOverflow.ellipsis)),
                       onPressed: _deleteConversation
                     )
                     /*Row(
@@ -112,6 +129,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 const SizedBox(width: 5),
                 Container(
+                  constraints: BoxConstraints(maxWidth: displaySize.width*0.1),
                   decoration: BoxDecoration(
                     color: colorScheme.tertiary, 
                     borderRadius: const BorderRadius.all(Radius.circular(10))
@@ -119,7 +137,7 @@ class _ChatPageState extends State<ChatPage> {
                   padding: const EdgeInsets.fromLTRB(0,4,0,4),
                   child: TextButton.icon(
                       icon: Icon(Icons.save_alt, color: colorScheme.background,), 
-                      label: Text("Save", style: TextStyle(color: colorScheme.background)),
+                      label: Text("Save Chat", style: TextStyle(color: colorScheme.background, overflow: TextOverflow.ellipsis)),
                       onPressed: _save,
                     )
                 ),
@@ -190,7 +208,6 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
             
-
             /*Row adds some Space between the Chat and the Input TextFormField*/
             Row(
               children: [
@@ -282,23 +299,53 @@ class _ChatPageState extends State<ChatPage> {
 
   }
 
-  void _deleteConversation(){
-    _setConversationCosts(0);
-    setState(() {
-      _messages.clear();
-    });
-    _save();
+  void setErrorMessage({ColorScheme? colorScheme, String? message}){
+
+    String defaultMessage = "No Errors detected.";
+
+    _errorMessage = message ?? defaultMessage;
+
+    if(_errorMessage == defaultMessage){
+      setState(() {
+        _errorMessageTextStyle = const TextStyle(color: Colors.green,fontWeight: FontWeight.normal);
+        _errorMessageBoxColor = colorScheme?.tertiary ?? const Color.fromARGB(255, 92, 91, 125);
+      });
+      return;
+    }
+    else{
+      setState(() {
+        _errorMessageTextStyle = TextStyle(color: colorScheme?.error ?? Colors.red, fontWeight: FontWeight.bold);
+        _errorMessageBoxColor = colorScheme?.onErrorContainer ?? Colors.white;
+      });
+    }
   }
 
+  /// Try-Catch included.
+  void _deleteConversation(){
+    try{
+      _setConversationCosts(0);
+      setState(() {
+        _messages.clear();
+      });
+      _save();
+      setErrorMessage();
+    }
+    catch(e){
+      setErrorMessage(colorScheme: Theme.of(context).colorScheme, message: e.toString());
+    }
+  }
+
+  /// No Try-Catch included.
   void _setConversationCosts(double costs){
       _conversationCosts = costs;
-    setState(() {
-      _conversationCostsFiveDecimals = _conversationCosts.toStringAsFixed(5);
-    });
+      setState(() {
+        _conversationCostsFiveDecimals = _conversationCosts.toStringAsFixed(5);
+      });
   }
 
+  /// No Try-Catch included.
   void _setAiAnswer(MessageAndUsage message) {
-    
+
     if(!assistantActive){return;}
     assistantActive = false;
 
@@ -306,124 +353,166 @@ class _ChatPageState extends State<ChatPage> {
       _messages.removeLast();
       _messages.add(message);
     });
+
     double costs = 0;
     _messages.forEach((element) {costs += element.usage!.totalTokens! * _modelCostsPerThousandTokens;});
     _setConversationCosts(costs);
+
   }
 
+  /// No Try-Catch included.
   void _setUserInput(String input) {
     _userInput = input;
   }
 
+  /// Try-Catch included.
   void _askAI() async {
-
-    if(assistantActive || _userInput.isEmpty){return;}
-    assistantActive = true;
-
-    var userMessage = MessageAndUsage(
-      author: MessageAndUsageAuthorEnum.user,
-      timestamp: DateTime.now(),
-      usage: ChatUsage(
-        completionTokens: 0,
-        promptTokens: 0,
-        totalTokens: 0
-      ),
-      message: _userInput
-    );
-    _userInput = "";
-    var gptMessage = MessageAndUsage(
-      author: MessageAndUsageAuthorEnum.assistant,
-      timestamp: DateTime.now(),
-      usage: ChatUsage(
-        completionTokens: 0,
-        promptTokens: 0,
-        totalTokens: 0
-      ),
-      message: ""
-    );
-
-    setState((){
-      _messages.add(userMessage); 
-      _messages.add(gptMessage); 
-      _focusNode.requestFocus();
-    });
-
-    Chat chat = Chat(
-      messages: _messages,
-      maxTokens: 200
-    );
-
-    gptMessage.message = "Typing...";
-    
-    gptMessage = (await _api!.chatCompletion(chat)) ?? gptMessage;
-    
-    _setAiAnswer(gptMessage);
-  }
-
-  void _askAIwithInput(String input) async {
-
-    if(assistantActive || _userInput.isEmpty){return;}
-    assistantActive = true;
-
-    var userMessage = MessageAndUsage(
-      author: MessageAndUsageAuthorEnum.user,
-      timestamp: DateTime.now(),
-      usage: ChatUsage(
-        completionTokens: 0,
-        promptTokens: 0,
-        totalTokens: 0
-      ),
-      message: input
-    );
-
-    _userInput = "";
-
-    var gptMessage = MessageAndUsage(
-      author: MessageAndUsageAuthorEnum.assistant,
-      timestamp: DateTime.now(),
-      usage: ChatUsage(
-        completionTokens: 0,
-        promptTokens: 0,
-        totalTokens: 0
-      ),
-      message: ""
-    );
-
-    setState((){
-      _messages.add(userMessage); 
-      _messages.add(gptMessage); 
-      _focusNode.requestFocus();
-    });
-
-    Chat chat = Chat(
-      maxTokens: 200,
-      messages: _messages
-    );
-
-    gptMessage.message = "Typing...";
     try{
-      gptMessage = (await _api!.chatCompletion(chat)) ?? gptMessage;
-    }
-    catch(e){
-      gptMessage.message = e.toString();
+      if(assistantActive || _userInput.isEmpty){return;}
+      assistantActive = true;
+
+      var userMessage = MessageAndUsage(
+        author: MessageAndUsageAuthorEnum.user,
+        timestamp: DateTime.now(),
+        usage: ChatUsage(
+          completionTokens: 0,
+          promptTokens: 0,
+          totalTokens: 0
+        ),
+        message: _userInput
+      );
+      _userInput = "";
+      var gptMessage = MessageAndUsage(
+        author: MessageAndUsageAuthorEnum.assistant,
+        timestamp: DateTime.now(),
+        usage: ChatUsage(
+          completionTokens: 0,
+          promptTokens: 0,
+          totalTokens: 0
+        ),
+        message: ""
+      );
+
+      setState((){
+        _messages.add(userMessage); 
+        _messages.add(gptMessage); 
+        _focusNode.requestFocus();
+      });
+
+      Chat chat = Chat(
+        messages: _messages,
+        maxTokens: 200
+      );
+
+      gptMessage.message = "Typing...";
+      
+      try{
+        gptMessage = (await _api!.chatCompletion(chat)) ?? gptMessage;
+      }
+      catch(e){
+        gptMessage.message = "failed.";
+        _setAiAnswer(gptMessage);
+        throw e;
+        //rethrow; <- doesn't work here?
+      }
+
       _setAiAnswer(gptMessage);
     }
-    
-    _setAiAnswer(gptMessage);
+    catch(e){
+      setErrorMessage(message: e.toString());
+    }
   }
 
+  /// Try-Catch included.
+  void _askAIwithInput(String input) async {
+    try{
+      
+      if(assistantActive || _userInput.isEmpty){return;}
+      assistantActive = true;
+
+      var userMessage = MessageAndUsage(
+        author: MessageAndUsageAuthorEnum.user,
+        timestamp: DateTime.now(),
+        usage: ChatUsage(
+          completionTokens: 0,
+          promptTokens: 0,
+          totalTokens: 0
+        ),
+        message: input
+      );
+
+      _userInput = "";
+
+      var gptMessage = MessageAndUsage(
+        author: MessageAndUsageAuthorEnum.assistant,
+        timestamp: DateTime.now(),
+        usage: ChatUsage(
+          completionTokens: 0,
+          promptTokens: 0,
+          totalTokens: 0
+        ),
+        message: ""
+      );
+
+      setState((){
+        _messages.add(userMessage); 
+        _messages.add(gptMessage); 
+        _focusNode.requestFocus();
+      });
+
+      Chat chat = Chat(
+        maxTokens: 200,
+        messages: _messages
+      );
+
+      gptMessage.message = "Typing...";
+      try{
+        gptMessage = (await _api!.chatCompletion(chat)) ?? gptMessage;
+      }
+      catch(e){
+        gptMessage.message = "failed.";
+        _setAiAnswer(gptMessage);
+        rethrow;
+      }
+      
+      _setAiAnswer(gptMessage);
+
+    }
+    catch(e){
+      setErrorMessage(message: e.toString());
+    }
+  }
+
+  /// Try-Catch included.
   void _loadConversation() async{
-    List<MessageAndUsage> list = await PrefsManager.loadConversation();
-    setState(() {
-      _messages.addAll(list);
-      //if(list.isNotEmpty){_messages.add(MessageAndUsage(message: "Data loaded."));}
-    });
+    try{
+      List<MessageAndUsage> list = await PrefsManager.loadConversation();
+      double costs = 0;
+      
+      if(list.isNotEmpty){
+        list.forEach((element) {costs += element.usage!.totalTokens! * _modelCostsPerThousandTokens;});
+      }
+      
+      setState(() {
+        _messages.addAll(list);
+      });
+      _setConversationCosts(costs);
+    }
+    catch(e){
+      setErrorMessage(message: e.toString());
+    }
   }
 
-  // was an exit method. Exit doesn't work in flutter, so we use a simple save button function.
+  // was an exit method. Exit doesn't work in flutter (for web), so we use a simple save button function.
+  /// Try-Catch included.
   void _save() async{
-    await PrefsManager.saveConversation(_messages);
-    /*SystemNavigator.pop();
-    exit(0);*/
+    try{
+      await PrefsManager.saveConversation(_messages);
+      /*SystemNavigator.pop();
+      exit(0);*/
+    }
+    catch(e){
+      setErrorMessage(message: e.toString());
+    }
   }
 }
