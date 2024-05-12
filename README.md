@@ -15,12 +15,9 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 
 ## 1. Zusammenfassung
 
-Im Rahmen des Moduls __Projekt Web-Entwicklung__ des Studiengangs __Angewandte Informatik__ an der FHDW, entstand dieses Softwareprojekt. Zwecks der Einarbeitung und Orientierung in die Programmiersprache Dart, das Flutter-Framework sowie
-OpenAPI via. Swagger, wurde [dieses Projekt](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) von 
-@github/csoltenborn vorgegeben. Die Aufgabe war, die bestehende Software von @github/csoltenborn zu erweitern und diese
-hier zu Dokumentieren. Die Vorgabe enthält zwei Kernkomponenten. Eine Flutter-Client und eine Dart-Server Anwendung. Zudem
-wird eine entsprechendes [package](https://pub.dev/packages/chat_gpt_sdk) eingebunden, das den Umgang mit der API von OpenAI
-mit ChatGPT erleichtert.
+Im Rahmen des Moduls __Projekt Web-Entwicklung__ des Studiengangs __Angewandte Informatik__ an der FHDW, entstand dieses Softwareprojekt. Das Ziel dieses Projekts ist es, eine (zur Einarbeitung und Orientierung) vorgebenene Software zu erweitern. Es handelt sich dabei um [dieses Projekt](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) von 
+@github/csoltenborn. Die Aufgabe bestand zudem aus der hier angefertigten Dokumentation dieser Erweiterung. 
+Die Vorgabe enthält zwei Kernkomponenten. Eine Client-Anwendung gebaut mithilfe des Flutter-Frameworks und eine Server Anwendung, geschrieben in Dart. Diese zwei Komponenten ermöglichen es, durch die Bereitstellung grundlegender Architektur, mit dem Large Language Model ChatGPT von OpenAI in der Version 3.5 Nachrichten auszutauschen. Diese Architektur umfasst dieses [package](https://pub.dev/packages/chat_gpt_sdk), das den Umgang mit der API von OpenAI erleichtern soll.
 
 
 ## 2. Einleitung
