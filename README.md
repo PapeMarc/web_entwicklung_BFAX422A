@@ -93,7 +93,8 @@ ListView.builder(
     },
     ),
 ```
-Nach erfolgreicher Implementierung und Gestaltung kann folgendes Erscheinungsbild für die ListView festgehalten werden:
+> Nach aufwendiger erfolgreicher Implementierung und Gestaltung der ListView-Komponente kann folgendes Erscheinungsbild festgehalten werden:
+
 ![](ListViewScreenshot.png)
 
 ListView
