@@ -197,8 +197,15 @@ Mithilfe der neu genrierten OpenAPI Schnittstelle, wurde die Server-App entsprec
 
 ##### Clientseitige Änderungen
 
-Die geänderten und neuen Entitäten können im Anschluss an die Neugenerierung der OpenAPI genutzt werden. 
-Um die Mitführung der Kosten im Rahmen der ausgetauschten Nachrichten zu ermöglichen, wird der Datentyp der Message-List, die bisher alle Nachrichten hält und somit als Itemquelle für die ListView dient, abgeändert hin zu einer MessageAndUsage-List.
+Die geänderten und neuen Entitäten können jetzt im Anschluss an die Neugenerierung der OpenAPI genutzt werden, um die Verarbeitung auch in der Client-App zu ermöglichen. 
+Beispielsweise wurde, um die Mitführung der Kosten im Rahmen der ausgetauschten Nachrichten zu ermöglichen, der Datentyp der Message-List von einer List<Message> hin zu einer List<MessageAndUsage> geändert.
+Auch die Methode _setConversationCosts(double costs)_ wurde hinzugefügt und die Benutzeroberfläche entsprechend erweitert, um die Kosten anzuzeigen.
+Die erstellte Komponente wird wie folgt gerendert:
+
+![](DarstellungKosten.png)
+
+> [!NOTE]
+> Zur berechnung der Kosten wurde die Referenz des Models 3.5 0631 verwendet. Dieses Modell kostet pro 1.000.000 Tokens 2$. Dies entspricht etwa 0.93€ pro 500.000 verwendeter Tokens.
 
 #### Nachrichtenspeicherung
 
