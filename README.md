@@ -269,7 +269,7 @@ und bietet die Möglichkeit, sich erst genauer mit dem Flutter-Framework auseina
 Neben den bereits angestellten, im vorhinein geplanten Änderungen, wurde zudem die GUI grundlegend erneuert.
 Dabei erhielt sie folgende Struktur in Flutter:
 
-´´´dart
+```dart
   Scaffold(
     appBar: AppBar(),
     body: Container(
@@ -312,6 +312,6 @@ Dabei erhielt sie folgende Struktur in Flutter:
       ),
     ),
   );
-´´´
+```
 
 ## 4. Rekapitulation und Ausblick
