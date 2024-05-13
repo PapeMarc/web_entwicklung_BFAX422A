@@ -322,3 +322,19 @@ Final lässt sich folgende grafische Benutzeroberfläche festhalten:
 ![](preview.png)
 
 ## 4. Rekapitulation und Ausblick
+
+### Rekapitulation - was habe ich gelernt?
+
+Im Anschluss an die hier entwickelte Anwendung für den Web-Bereich, konnte ich verschiedene neue Fähigkeiten erwerben.
+Dazu zählt mich erfolgreich in die Gegebenheiten der Programmierpsrache Dart sowie in das Flutter Framework einzuarbeiten und 
+bestehende Strukturen maßgeblich zu erweitern. Ich habe die verschiedenen GUI-Komponenten des Flutter-Frameworks kennengelernt 
+und fallweise implementiert. Die grundlegende Architektur des Flutter-Frameworks und dessen Methoden und Abläufe kann ich jetzt 
+verwenden, um weitere Anwendungen mit Flutter zu entwickeln.
+
+### Ausblick - Für was kann ich meine erworbenen Fähigkeiten und diese Software verwenden?
+
+Die in dieser Software entwickelten Komponenten mithilfe des Flutter-Frameworks sind sehr unterschiedlich zu beispielsweise grafischen Benutzeroberflächen in WPF mit C# oder VUE in jsc.. Die Art und Architektur in Flutter, mit welcher man neue Komponenten (/Widgets) einbaut, 
+erinnert mich sporadisch an die Strukturen der Videospielengine _Unity_. Die Besonderheit bei Flutter sowie Unity ist es, nicht nur für eine Zielplattform zu entwickeln, sondern gleichzeitig für mehrere. Diese Fähigkeit ist sehr mächtig und für die Zukunft, mit einem wettbewerbsreichen Markt und einer wachsenden Anzahl von Plattformen, unerlässlich. 
+
+Die von mir hier entwickelten Komponenten können in Zukunft bei anderen Projekten mit Flutter oder in Dart Verwendung finden. Sei dies als Referenz oder gar durch eine identischen Implementierung.
+Um an diese Applikation, bestehend aus der Server und Clientanwendung anzuschließen, könnte es interessant sein die ChatGPT-API abzubinden und eine andere API anzubinden. Auch eine grafische umgestaltung der Software halte ich für durchaus lohnenswert.
