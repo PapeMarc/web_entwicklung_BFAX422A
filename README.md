@@ -142,6 +142,7 @@ Wie aus dem Abschnitt erkenntlich wird, muss bei Aufruf der API eine Chat-Entit�
 Folgende Definitionen wurden für die Entitäten _MessageAndUsage_ und _Chat_ verwendet.
 
 ***MessageAndUsage***
+
 Diese Entität umfasst alle Informationen über eine bestimmte Nachricht. Sie beinhaltet wann und von wem welche Textnachricht geschickt wurde. Zudem ist ein Feld _usage_ vorhanden, in welches die entstandenen Kosten des Sprachmodells geschrieben werden können (in Tokens). Die Definition der Entität _ChatUsage_ ist am Ende dieses Abschnitts zu finden (hinter _Chat_).
 ```yaml
 MessageAndUsage:
@@ -163,6 +164,7 @@ MessageAndUsage:
 ```
 
 ***Chat***
+
 Die Entität Chat repräsentiert eine Nachrichtenanfrage an das Sprachmodell. Dementsprechend umfasst diese eine Liste aller Nachrichten, die ausgetauscht wurden. Auch ein Wert max_tokens kann mitgegeben werden. Dieser beeinflusst, wie viele Tokens das Sprachmodell zur Generierung der Antwort zur Verfügung hat.
 ```yaml
 Chat:
@@ -177,6 +179,7 @@ Chat:
 ``` 
 
 ***ChatUsage***
+
 Die Entität ChatUsage umfasst drei Felder, in welcher das Sprachmodell vermerken kann, wie viele Tokens verwendet wurden, um die entstandene Antwort zu generieren.
 ```yaml
 ChatUsage:
