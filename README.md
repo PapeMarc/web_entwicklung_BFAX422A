@@ -2,16 +2,18 @@
 Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an der Fachhochschule der Wirtschaft in bergisch Gladbach (FHDW-BG).
 
 ## Inhaltsverzeichnis
-1. Zusammenfassung
-2. Einleitung
-    - Ist-Zustand
-    - die Idee
-    - Ziele / Nutzen
-3. Praxis
-    - Umsetzung
-    - Retroperspektive: Umsetzung
-    - Zusätzliche Erweiterungen
-4. Rekapitulation und Ausblick
+1. [Zusammenfassung](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#1-zusammenfassung)
+2. [Einleitung](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#2-einleitung)
+    - [Ist-Zustand](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#21-ist-zustand)
+    - [die Idee](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#22-die-idee--das-konzept)
+    - [Ziele / Nutzen](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#23-ziele--nutzen)
+3. [Die Erweiterung](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#3-die-erweiterung)
+    - [Umsetzung](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#31-umsetzung)
+    - [Retroperspektive: Umsetzung](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#32-retroperspektive-umsetzung)
+    - [Zusätzliche Erweiterungen](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#33-zusätzliche-erweiterungen)
+4. [Rekapitulation und Ausblick](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#4-rekapitulation-und-ausblick)
+    - [Rekapitulation](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#rekapitulation---was-habe-ich-gelernt)
+    - [Ausblick](https://github.com/PapeMarc/web_entwicklung_BFAX422A/blob/master/README.md#ausblick---für-was-kann-ich-meine-erworbenen-fähigkeiten-und-diese-software-verwenden)
 
 ## 1. Zusammenfassung
 > [!NOTE] 
@@ -322,6 +324,8 @@ Final lässt sich folgende grafische Benutzeroberfläche festhalten:
 ![](preview.png)
 
 ## 4. Rekapitulation und Ausblick
+
+Dieses Kapitel fasst kurz die in diesem Projekt erlernten Fähigkeiten zusammen und gibt einen fachlichen Ausblick.
 
 ### Rekapitulation - was habe ich gelernt?
 
