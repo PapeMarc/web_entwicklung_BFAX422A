@@ -17,6 +17,7 @@ Dieses Projekt entstand im Rahmen meines Studiums der Angewandten Informatik an 
 > [!NOTE] 
 > Dieses Projekt stellt die Erweiterung [dieses bereits existierenden Projekts](https://github.com/csoltenborn/web_entwicklung_BFAX422A/tree/master) dar.
 Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums der _Angewandten Informatik_ an der [FHDW](https://www.fhdw.de) und umfasst:
+
 1. Serverseitig:
     - die Überarbeitung der __Server-API__ um den austausch ganzer Konversationen zu ermöglichen.
 2. Clientseitig: 
@@ -25,6 +26,8 @@ Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums der _Angew
     - die Erweiterung der Client-Benutzeroberfläche um eine aktuelle __Kostenanzeige__, eine __Statuszeile__, einen __Speicher-Button__ sowie die Möglichkeit, die __Konversation zurückzusetzen__.
     - die Erweiterung des Clients um eine grundlegende __Fehlerbehandlung__ und ein simples __Speicher-Konzept__, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
 
+Folgendes Ergebnis wird erzielt:
+![](preview.png)
 
 ## 2. Einleitung
 Im Rahmen des Moduls __Projekt Web-Entwicklung__ des Studiengangs __Angewandte Informatik__ an der FHDW, entstand dieses Softwareprojekt. Das Ziel dieses Projekts ist es, eine (zur Einarbeitung und Orientierung) vorgebenene Applikation zu erweitern. 
@@ -200,7 +203,7 @@ Mithilfe der neu genrierten OpenAPI Schnittstelle, wurde die Server-App entsprec
 Die geänderten und neuen Entitäten können jetzt im Anschluss an die Neugenerierung der OpenAPI genutzt werden, um die Verarbeitung auch in der Client-App zu ermöglichen. 
 Beispielsweise wurde, um die Mitführung der Kosten im Rahmen der ausgetauschten Nachrichten zu ermöglichen, der Datentyp der Message-List von einer List<Message> hin zu einer List<MessageAndUsage> geändert.
 Auch die Methode _setConversationCosts(double costs)_ wurde hinzugefügt und die Benutzeroberfläche entsprechend erweitert, um die Kosten anzuzeigen.
-Die erstellte Komponente wird wie folgt gerendert:
+Die erstellte Komponente wird wie folgt gerendert (Beispiel anhand von tatsächlich akkumulierten Kosten):
 
 ![](DarstellungKosten.png)
 
@@ -249,6 +252,8 @@ Wird ein Fehler abgefangen, so wird dieser wie folgt dargestellt (_Beispielfehle
 
 
 ### 3.2 Retroperspektive: Umsetzung
+
+Nachdem alle geplanten Änderungen angestellt wurden, kann festgehalten werden, 
 
 ### 3.3 Zusätzliche Erweiterungen
 
