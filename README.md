@@ -266,11 +266,52 @@ und bietet die Möglichkeit, sich erst genauer mit dem Flutter-Framework auseina
 
 ### 3.3 Zusätzliche Erweiterungen
 
-Neben den angestellten geplanten Änderungen wurde zudem die GUI grundlegend ersetzt.
+Neben den bereits angestellten, im vorhinein geplanten Änderungen, wurde zudem die GUI grundlegend erneuert.
 Dabei erhielt sie folgende Struktur in Flutter:
 
 ´´´dart
-
+Scaffold(
+  appBar: AppBar(),
+  body: Container(
+    child: Column(
+      children: <Widget>[
+        Row(
+          children: [
+            Container(),
+            SizedBox(),
+            Container(),
+            SizedBox(),
+            Container(),
+            SizedBox(),
+            Container(),
+            SizedBox(),
+          ]
+        ),
+        Container(
+          child: SizedBox(
+            child: RawScrollbar(
+              child: ListView.builder(),
+            ),
+          ),
+        ),
+        Row(
+          children:[
+            SizedBox(),
+          ],
+        ),
+        Row(
+          children:<Widget>[
+            SizedBox(),
+            Expanded(
+              child: TextFormField(),
+            ),
+            SizedBox(),
+          ],
+        ),
+      ],
+    ),
+  ),
+);
 ´´´
 
 ## 4. Rekapitulation und Ausblick
