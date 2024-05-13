@@ -192,13 +192,19 @@ ChatUsage:
     total_tokens:
         type: number
 ```
+
+Mithilfe der neu genrierten OpenAPI Schnittstelle, wurde die Server-App entsprechend umgeschrieben.
+
 ##### Clientseitige Änderungen
+
+Die geänderten und neuen Entitäten können im Anschluss an die Neugenerierung der OpenAPI genutzt werden. 
+Um die Mitführung der Kosten im Rahmen der ausgetauschten Nachrichten zu ermöglichen, wird der Datentyp der Message-List, die bisher alle Nachrichten hält und somit als Itemquelle für die ListView dient, abgeändert hin zu einer MessageAndUsage-List.
 
 #### Nachrichtenspeicherung
 
 Die Clientseitige Persistierung der Nachrichten wurde mithilfe der [Shared Preferences](https://pub.dev/packages/shared_preferences) des Flutter-Frameworks realisiert. Dies geschieht über die zwei statischen Methoden _saveConversation()_ und _loadConversation()_ der erstellten PrefsManager-Klasse. Diese speichern die im Programm hinterlegte Nachrichtenliste als JSON-Objekt ab. Dies geschieht mithilfe der Bibliothek __dart:convert__ und __shared_preferences/shared_preferences.dart__.
 
-#### grundlegende Fehlerbehandlung
+#### Fehlerbehandlung
 
 Um entstehenden Fehlern vorzubeugen, wurde eine grundlegende Fehlerbehandlung mit Try-Catch eingebunden. Tritt ein Fehler auf, so wird die Methode _setErrorMessage()_ aufgerufen, welche dann den entsprechenden Fehlertext geregelt und angemessen visualisiert.
 Diese sieht wie folgt aus:
@@ -230,7 +236,7 @@ Wird kein Fehler registriert, so wird die Fehlerbox in der GUI wie folgt dargest
 
 ![alt text](NoErrorExample.png)
 
-Wird ein Fehler gefunden, so wird der Fehler wie folgt dargestellt (_Beispielfehler_):
+Wird ein Fehler abgefangen, so wird dieser wie folgt dargestellt (_Beispielfehler_):
 
 ![alt text](ErrorExample.png)
 
