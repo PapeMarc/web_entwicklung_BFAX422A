@@ -266,7 +266,7 @@ und bietet die Möglichkeit, sich erst genauer mit dem Flutter-Framework auseina
 
 ### 3.3 Zusätzliche Erweiterungen
 
-Neben den bereits angestellten, im vorhinein geplanten Änderungen, wurde zudem die GUI grundlegend erneuert.
+Neben den bereits angestellten, im vorhinein geplanten, Änderungen, wurde zudem die GUI grundlegend erneuert.
 Dabei erhielt sie folgende Struktur in Flutter:
 
 ```dart
@@ -313,5 +313,12 @@ Dabei erhielt sie folgende Struktur in Flutter:
     ),
   );
 ```
+
+Genauer auf diese Struktur und alle anderen Änderungen einzugehen, ist im Rahmen dieser Dokumentation zu Umfangreich.
+Bei Nachfragen stehe ich gerne per Email zur Verfügung.
+
+Final lässt sich folgende grafische Benutzeroberfläche festhalten:
+
+![](preview.png)
 
 ## 4. Rekapitulation und Ausblick
