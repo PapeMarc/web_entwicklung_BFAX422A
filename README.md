@@ -270,50 +270,48 @@ Neben den bereits angestellten, im vorhinein geplanten Änderungen, wurde zudem 
 Dabei erhielt sie folgende Struktur in Flutter:
 
 ´´´dart
-
-Scaffold(
-  appBar: AppBar(),
-  body: Container(
-    child: Column(
-      children: <Widget>[
-        Row(
-          children: [
-            Container(),
-            SizedBox(),
-            Container(),
-            SizedBox(),
-            Container(),
-            SizedBox(),
-            Container(),
-            SizedBox(),
-          ]
-        ),
-        Container(
-          child: SizedBox(
-            child: RawScrollbar(
-              child: ListView.builder(),
+  Scaffold(
+    appBar: AppBar(),
+    body: Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: [
+              Container(),
+              SizedBox(),
+              Container(),
+              SizedBox(),
+              Container(),
+              SizedBox(),
+              Container(),
+              SizedBox(),
+            ]
+          ),
+          Container(
+            child: SizedBox(
+              child: RawScrollbar(
+                child: ListView.builder(),
+              ),
             ),
           ),
-        ),
-        Row(
-          children:[
-            SizedBox(),
-          ],
-        ),
-        Row(
-          children:<Widget>[
-            SizedBox(),
-            Expanded(
-              child: TextFormField(),
-            ),
-            SizedBox(),
-          ],
-        ),
-      ],
+          Row(
+            children:[
+              SizedBox(),
+            ],
+          ),
+          Row(
+            children:<Widget>[
+              SizedBox(),
+              Expanded(
+                child: TextFormField(),
+              ),
+              SizedBox(),
+            ],
+          ),
+        ],
+      ),
     ),
-  ),
-);
-
+  );
 ´´´
 
 ## 4. Rekapitulation und Ausblick
