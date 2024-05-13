@@ -30,7 +30,7 @@ class _ChatPageState extends State<ChatPage> {
   
 
   final FocusNode _focusNode = FocusNode();
-  final double _modelCostsPerThousandTokens = (0.93/500000); // The current Model gpt-3.5-turbo-0613 costs 2 Dollar per 1 million Tokens
+  final double _modelCostsPerToken = (0.93/500000); // The current Model gpt-3.5-turbo-0613 costs 2 Dollar per 1 million Tokens
   final List<MessageAndUsage> _messages = List<MessageAndUsage>.empty(growable: true);
 
   @override
@@ -355,7 +355,7 @@ class _ChatPageState extends State<ChatPage> {
     });
 
     double costs = 0;
-    _messages.forEach((element) {costs += element.usage!.totalTokens! * _modelCostsPerThousandTokens;});
+    _messages.forEach((element) {costs += element.usage!.totalTokens! * _modelCostsPerToken;});
     _setConversationCosts(costs);
 
   }
@@ -490,7 +490,7 @@ class _ChatPageState extends State<ChatPage> {
       double costs = 0;
       
       if(list.isNotEmpty){
-        list.forEach((element) {costs += element.usage!.totalTokens! * _modelCostsPerThousandTokens;});
+        list.forEach((element) {costs += element.usage!.totalTokens! * _modelCostsPerToken;});
       }
       
       setState(() {
