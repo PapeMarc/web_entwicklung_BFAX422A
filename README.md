@@ -270,6 +270,7 @@ Neben den bereits angestellten, im vorhinein geplanten Änderungen, wurde zudem 
 Dabei erhielt sie folgende Struktur in Flutter:
 
 ´´´dart
+
 Scaffold(
   appBar: AppBar(),
   body: Container(
@@ -312,6 +313,7 @@ Scaffold(
     ),
   ),
 );
+
 ´´´
 
 ## 4. Rekapitulation und Ausblick
