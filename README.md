@@ -95,19 +95,21 @@ ListView.builder(
     },
     ),
 ```
-> Nach aufwendiger erfolgreicher Implementierung und Gestaltung der ListView-Komponente kann folgendes Erscheinungsbild festgehalten werden:
-
-> [!NOTE]
-> Es ist wichtig zu betonen, dass im Code um die ListView-Komponente herum noch weitere Komponenten verwendung finden, um dieses Erscheinungsbild zu erreichen.
+> Nach erfolgreicher Implementierung und Ausgestaltung der ListView-Komponente kann folgendes Erscheinungsbild festgehalten werden:
 
 ![](ListViewScreenshot.png)
 
+> [!NOTE]
+> Es ist wichtig festzuhalten, dass im Code um die ListView-Komponente herum noch weitere Komponenten Verwendung finden, um das hier präsentierte Erscheinungsbild zu erreichen.
+
 #### Nachrichtenkorrelationen herstellen und Kosten darstellen
+
 ##### Serverseitige Änderungen
 
-Um den Bezug zwischen Nachrichten herzustellen und die Kosten pro Nachricht zu speichern, muss die Server-API entsprechend angepasst und erneut generiert werden. 
+Um den Bezug zwischen Nachrichten herzustellen und die entstandenen Kosten der OpenAI-API (pro Nachricht) zu speichern, muss die Server-API entsprechend angepasst und erneut generiert werden. 
 _Hierbei kommt der Online-Editor von Swagger zum Einsatz. Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._  
-Folgende API-Definition lässt sich festhalten:
+
+Folgende API-Definition lässt sich für den Aufruf der Schnittstelle festhalten:
 
 ```yaml
 /chat/completion:
@@ -136,10 +138,11 @@ Folgende API-Definition lässt sich festhalten:
         description: Invalid request.
 ```
 
-Folgende Definitionen wurden für die Entitäten _MessageAndUsage_, _Chat_ und _ChatUsage_ verwendet:
+Wie aus dem Abschnitt erkenntlich wird, muss bei Aufruf der API eine Chat-Entität im JSON-Format mitgegeben werden und als Antwort ist eine MessageAndUsage-Entität zu erwarten.
+Folgende Definitionen wurden für die Entitäten _MessageAndUsage_ und _Chat_ verwendet.
 
 ***MessageAndUsage***
-Diese Entität umfasst alle Informationen über eine bestimmte Nachricht. Sie beinhaltet wann und von wem was geschickt wurde. Zudem ist ein Feld _usage_ vorhanden, in welches die entstandenen Kosten des Sprachmodells geschrieben werden können (in Tokens).
+Diese Entität umfasst alle Informationen über eine bestimmte Nachricht. Sie beinhaltet wann und von wem welche Textnachricht geschickt wurde. Zudem ist ein Feld _usage_ vorhanden, in welches die entstandenen Kosten des Sprachmodells geschrieben werden können (in Tokens). Die Definition der Entität _ChatUsage_ ist am Ende dieses Abschnitts zu finden (hinter _Chat_).
 ```yaml
 MessageAndUsage:
     type: object
@@ -186,8 +189,13 @@ ChatUsage:
     total_tokens:
         type: number
 ```
+##### Clientseitige Änderungen
+
+#### Nachrichtenspeicherung
 
 Die Clientseitige Persistierung der Nachrichten wurde mithilfe der [Shared Preferences](https://pub.dev/packages/shared_preferences) des Flutter-Frameworks realisiert. Dies geschieht über die zwei statischen Methoden _saveConversation()_ und _loadConversation()_ der erstellten PrefsManager-Klasse. Diese speichern die im Programm hinterlegte Nachrichtenliste als JSON-Objekt ab. Dies geschieht mithilfe der Bibliothek __dart:convert__ und __shared_preferences/shared_preferences.dart__.
+
+#### grundlegende Fehlerbehandlung
 
 Um entstehenden Fehlern vorzubeugen, wurde eine grundlegende Fehlerbehandlung mit Try-Catch eingebunden. Tritt ein Fehler auf, so wird die Methode _setErrorMessage()_ aufgerufen, welche dann den entsprechenden Fehlertext geregelt und angemessen visualisiert.
 Diese sieht wie folgt aus:
