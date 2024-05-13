@@ -72,18 +72,18 @@ Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewerte
 
 ### 3.1 Umsetzung
 
-#### 3.1.1 Darstellen des Nachrichtenverlaufs
+#### Darstellen des Nachrichtenverlaufs
 
-Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd nach rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links.
+Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd rechts und linksbündig ausgerichtet. Somit sind alle Nachrichten, die der Nutzer eingegeben hat, rechtsbündig und alle empfangenen Antworten des Sprachmodells linksbündig. Folgender Code stellt dies vereinfacht dar.
 > [!NOTE]
-> Folgender Code wird vereinfacht dargestellt, um die beschriebene Funktionalität zu visualisieren.
+> Folgender Code wird stark reduziert dargestellt, um nur die Kernaspekte zu visualisieren.
 ```dart
 ListView.builder(
     scrollDirection: Axis.vertical,
     itemCount: _messages.length,
     itemBuilder: (context, index) {
 
-        if(index%2==0){ _alignment = Alignment.bottomLeft; } 
+        if(index % 2==0){ _alignment = Alignment.bottomLeft; } 
         else{ _alignment = Alignment.bottomRight; }
 
         String message = _messages.elementAt(index).message.toString();
@@ -97,11 +97,16 @@ ListView.builder(
 ```
 > Nach aufwendiger erfolgreicher Implementierung und Gestaltung der ListView-Komponente kann folgendes Erscheinungsbild festgehalten werden:
 
+> [!NOTE]
+> Es ist wichtig zu betonen, dass im Code um die ListView-Komponente herum noch weitere Komponenten verwendung finden, um dieses Erscheinungsbild zu erreichen.
+
 ![](ListViewScreenshot.png)
 
-#### 3.1.2 Nachrichtenkorrelationen herstellen und Kosten einbetten
+#### Nachrichtenkorrelationen herstellen und Kosten darstellen
+##### Serverseitige Änderungen
 
-Um jetzt den Bezug zwischen Nachrichten herzustellen sowie die Kosten pro Nachricht speichern zu können, muss die Server-API entsprechend angepasst und erneut generiert werden. _Hierbei kommt der Online-Editor von Swagger zum Einsatz. Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._  
+Um den Bezug zwischen Nachrichten herzustellen und die Kosten pro Nachricht zu speichern, muss die Server-API entsprechend angepasst und erneut generiert werden. 
+_Hierbei kommt der Online-Editor von Swagger zum Einsatz. Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._  
 Folgende API-Definition lässt sich festhalten:
 
 ```yaml
