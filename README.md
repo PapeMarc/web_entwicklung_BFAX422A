@@ -335,7 +335,7 @@ bestehende Strukturen maßgeblich zu erweitern. Ich habe die verschiedenen GUI-K
 und fallweise implementiert. Die grundlegende Architektur des Flutter-Frameworks und dessen Methoden und Abläufe kann ich jetzt 
 verwenden, um weitere Anwendungen mit Flutter zu entwickeln.
 
-### Ausblick - Für was kann ich meine erworbenen Fähigkeiten und diese Software verwenden?
+### Ausblick - Für was kann ich die erworbenen Fähigkeiten sowie diese Software verwenden?
 
 Die in dieser Software entwickelten Komponenten mithilfe des Flutter-Frameworks sind sehr unterschiedlich zu beispielsweise grafischen Benutzeroberflächen in WPF mit C# oder VUE in jsc.. Die Art und Architektur in Flutter, mit welcher man neue Komponenten (/Widgets) einbaut, 
 erinnert mich sporadisch an die Strukturen der Videospielengine _Unity_. Die Besonderheit bei Flutter sowie Unity ist es, nicht nur für eine Zielplattform zu entwickeln, sondern gleichzeitig für mehrere. Diese Fähigkeit ist sehr mächtig und für die Zukunft, mit einem wettbewerbsreichen Markt und einer wachsenden Anzahl von Plattformen, unerlässlich. 
