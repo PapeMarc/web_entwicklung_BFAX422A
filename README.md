@@ -26,7 +26,8 @@ Meine hier entwickelte Erweiterung entstand im Rahmen meines Studiums der _Angew
     - die Erweiterung der Client-Benutzeroberfläche um eine aktuelle __Kostenanzeige__, eine __Statuszeile__, einen __Speicher-Button__ sowie die Möglichkeit, die __Konversation zurückzusetzen__.
     - die Erweiterung des Clients um eine grundlegende __Fehlerbehandlung__ und ein simples __Speicher-Konzept__, um die ausgetauschten Nachrichten mit ChatGPT zu speichern und wieder zu laden.
 
-Folgendes Ergebnis wird erzielt:
+_Folgendes Ergebnis wird dabei erzielt:_
+
 ![](preview.png)
 
 ## 2. Einleitung
@@ -253,8 +254,23 @@ Wird ein Fehler abgefangen, so wird dieser wie folgt dargestellt (_Beispielfehle
 
 ### 3.2 Retroperspektive: Umsetzung
 
-Nachdem alle geplanten Änderungen angestellt wurden, kann festgehalten werden, 
+Währen der Entwicklung habe ich mich aus Debugging-Zwecken auf die Ausführung im Chrome-Browser fokussiert.
+Dies bringt zum einen den Vorteil, schnell und responsiv Ergebnisse erzielen zu können und Skalierungsfaktoren
+(im gegensatz zu einer bspw. Handy-Version) zu erfassen und zu testen.
+Allerdings bringt dies auch den Nachteil bspw. bei dier Datenspeicherungen mit den Shared Preferences. Da die 
+Client-Anwendung im Debug-Moduls lediglich im Rahmen einer VM erstellt und diese auch wieder gelöscht wird,
+ist das Testen der Datenspeicherung nur unter Umständen möglich und sehr aufwendig.
+Des Weiteren ist es ratsam, vor den Änderungen am Backend, sich erst mit den grafischen Komponenten der
+Benutzeroberfläche genauer zu beschäftigen. Dies lässt eine realistischere Umsetzung des Backends zu 
+und bietet die Möglichkeit, sich erst genauer mit dem Flutter-Framework auseinanderzusetzen.
 
 ### 3.3 Zusätzliche Erweiterungen
+
+Neben den angestellten geplanten Änderungen wurde zudem die GUI grundlegend ersetzt.
+Dabei erhielt sie folgende Struktur in Flutter:
+
+´´´dart
+
+´´´
 
 ## 4. Rekapitulation und Ausblick
