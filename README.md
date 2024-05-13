@@ -68,9 +68,11 @@ Nachdem im letzten Abschnitt die Idee kurz erörtert wurde, wird in diesem Absch
 
 ## 3. Die Erweiterung
 Dieser Abschnitt beschreibt, welche technischen Änderungen und Erweiterungen vorgenommen wurden, um die Zielsetzung zu erreichen.
-Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewertet. Zuletzt werden zusätzliche, nicht im Rahmen der Zielsetzung geplante Erweiterungen genannt.
+Zudem werden die angestellten Änderungen kurz im Rahmen der Zielsetzung bewertet. Zuletzt werden zusätzlich angefertigte, nicht im Rahmen der Zielsetzung geplante, Erweiterungen vorgestellt.
 
 ### 3.1 Umsetzung
+
+#### 3.1.1 Darstellen des Nachrichtenverlaufs
 
 Um den Nachrichtenverlauf darzustellen können, wurde eine ListView verwendet. Diese staffelt Container vertikal aneinander, welche die verschiedenen Nachrichten enthalten. Diese werden abwechselnd nach rechts und links ausgerichtet. Somit sind alle Nachrichten, die der Nutzer abgeschickt hat, rechts orientiert und alle empfangenen Antworten links.
 > [!NOTE]
@@ -97,8 +99,9 @@ ListView.builder(
 
 ![](ListViewScreenshot.png)
 
-Um jetzt den Bezug zwischen Nachrichten herzustellen sowie die Kosten pro Nachricht speichern zu können, muss die Server-API entsprechend angepasst und erneut generiert werden. _Hierbei kommt der Online-Editor von Swagger zum Einsatz._ 
-_Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._  
+#### 3.1.2 Nachrichtenkorrelationen herstellen und Kosten einbetten
+
+Um jetzt den Bezug zwischen Nachrichten herzustellen sowie die Kosten pro Nachricht speichern zu können, muss die Server-API entsprechend angepasst und erneut generiert werden. _Hierbei kommt der Online-Editor von Swagger zum Einsatz. Zudem wird zur Generierung der API-Komponenten der Generator von OpenAPI verwendet._  
 Folgende API-Definition lässt sich festhalten:
 
 ```yaml
@@ -193,15 +196,15 @@ _errorMessage = message ?? defaultMessage;
 
 if(_errorMessage == defaultMessage){
     setState(() {
-    _errorMessageTextStyle = const TextStyle(color: Colors.green,fontWeight: FontWeight.normal);
-    _errorMessageBoxColor = colorScheme?.tertiary ?? const Color.fromARGB(255, 92, 91, 125);
+      _errorMessageTextStyle = const TextStyle(color: Colors.green,fontWeight: FontWeight.normal);
+      _errorMessageBoxColor = colorScheme?.tertiary ?? const Color.fromARGB(255, 92, 91, 125);
     });
     return;
 }
 else{
     setState(() {
-    _errorMessageTextStyle = TextStyle(color: colorScheme?.error ?? Colors.red, fontWeight: FontWeight.bold);
-    _errorMessageBoxColor = colorScheme?.onErrorContainer ?? Colors.white;
+      _errorMessageTextStyle = TextStyle(color: colorScheme?.error ?? Colors.red, fontWeight: FontWeight.bold);
+      _errorMessageBoxColor = colorScheme?.onErrorContainer ?? Colors.white;
     });
 }
 }
